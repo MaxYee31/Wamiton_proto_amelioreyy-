@@ -164,6 +164,28 @@ body{background:var(--pp);font-family:var(--fs);font-weight:300;color:var(--cr);
 .otp-resend{font-size:13px;color:rgba(245,236,215,.4);text-align:center;margin-bottom:28px;}
 .otp-resend span{color:var(--oc);cursor:pointer;text-decoration:underline;}
 
+/* Auth — email + mot de passe (US-008/009/010) */
+.auth-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.auth-scroll::-webkit-scrollbar{display:none;}
+.field-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-2col .txt-input{width:100%;}
+.field-label .opt{color:rgba(245,236,215,.3);text-transform:none;letter-spacing:0;font-size:10px;}
+.input-hint{font-size:11px;color:rgba(245,236,215,.42);margin:-7px 0 16px;}
+.pwd-wrap{position:relative;margin-bottom:6px;}
+.pwd-eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(245,236,215,.38);cursor:pointer;display:flex;padding:6px;-webkit-tap-highlight-color:transparent;}
+.pwd-eye.on{color:var(--oc);}
+.input-error{font-size:12.5px;color:#E0937F;background:rgba(200,57,43,.1);border:1px solid rgba(200,57,43,.28);border-radius:10px;padding:10px 12px;margin-bottom:6px;line-height:1.4;}
+.auth-toggle{display:flex;background:var(--co2);border:1px solid rgba(245,236,215,.08);border-radius:12px;padding:3px;margin-bottom:18px;}
+.at-btn{flex:1;padding:10px;border:none;background:none;border-radius:9px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,236,215,.45);cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:transparent;}
+.at-btn.on{background:var(--oc);color:var(--co);}
+.forgot-link{align-self:flex-start;background:none;border:none;color:var(--oc);font-family:var(--fs);font-size:13px;cursor:pointer;padding:2px 0;margin-bottom:6px;-webkit-tap-highlight-color:transparent;}
+.auth-confirm{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8px;}
+.confirm-ic{width:74px;height:74px;border-radius:50%;background:rgba(193,125,60,.12);border:1px solid rgba(193,125,60,.28);display:flex;align-items:center;justify-content:center;color:var(--oc);margin-bottom:20px;}
+.confirm-h{font-family:var(--fd);font-size:26px;color:var(--cr);margin-bottom:10px;}
+.confirm-p{font-size:14px;color:rgba(245,236,215,.6);line-height:1.6;max-width:32ch;margin-bottom:18px;}
+.confirm-p strong{color:var(--cr);font-weight:600;}
+.confirm-note{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.05em;color:rgba(245,236,215,.5);background:var(--co2);border:1px solid rgba(245,236,215,.07);padding:9px 14px;border-radius:99px;}
+
 /* ============================================================
    S7 — ACCUEIL
 ============================================================ */
@@ -699,17 +721,26 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
     </button>
     <div class="form-head">
       <h2>Crée ton<br>compte</h2>
-      <p>Entre ton numéro — on t'envoie un code pour confirmer.</p>
+      <p>On t'envoie un lien de confirmation par email pour activer ton compte.</p>
     </div>
-    <label class="field-label">Prénom</label>
-    <input type="text" class="txt-input" placeholder="Kofi" autocomplete="given-name">
-    <label class="field-label">Numéro de téléphone</label>
-    <div class="phone-row">
-      <button class="flag-btn">🇧🇯 +229</button>
-      <input type="tel" class="txt-input" placeholder="97 00 00 00" inputmode="numeric" style="margin-bottom:0;">
+    <div class="auth-scroll">
+      <div class="field-2col">
+        <div><label class="field-label">Prénom</label><input type="text" class="txt-input" placeholder="Kofi" autocomplete="given-name"></div>
+        <div><label class="field-label">Nom</label><input type="text" class="txt-input" placeholder="Koffi" autocomplete="family-name"></div>
+      </div>
+      <label class="field-label">Email</label>
+      <input id="suEmail" type="email" class="txt-input" placeholder="kofi@email.com" autocomplete="email">
+      <label class="field-label">Mot de passe</label>
+      <div class="pwd-wrap">
+        <input id="suPwd" type="password" class="txt-input" placeholder="••••••••" style="margin-bottom:0;">
+        <button class="pwd-eye" type="button" onclick="togglePwd('suPwd',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <p class="input-hint">8 caractères minimum.</p>
+      <label class="field-label">Téléphone <span class="opt">(optionnel)</span></label>
+      <input type="tel" class="txt-input" placeholder="+229 97 00 00 00" inputmode="tel">
+      <div id="suErr" class="input-error" hidden></div>
     </div>
-    <p class="input-note" style="margin-top:10px;">Tes données sont protégées. On ne partage rien.</p>
-    <button class="btn-p" onclick="nav('s6')" style="margin-top:auto;">Recevoir le code</button>
+    <button class="btn-p" onclick="validateSignup()" style="margin-top:14px;">Créer mon compte</button>
     <div class="switch-link">Déjà un compte ? <span onclick="nav('s5')">Se connecter</span></div>
   </div>
 
@@ -721,36 +752,69 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
     </button>
     <div class="form-head">
       <h2>Content de<br>te revoir</h2>
-      <p>Entre ton numéro pour recevoir ton code de connexion.</p>
+      <p>Connecte-toi pour retrouver tes billets et tes achats.</p>
     </div>
-    <label class="field-label">Numéro de téléphone</label>
-    <div class="phone-row">
-      <button class="flag-btn">🇧🇯 +229</button>
-      <input type="tel" class="txt-input" placeholder="97 00 00 00" inputmode="numeric" style="margin-bottom:0;">
+    <div class="auth-toggle">
+      <button class="at-btn on" id="atEmail" onclick="loginMethod('email')">Email</button>
+      <button class="at-btn" id="atPhone" onclick="loginMethod('phone')">Téléphone</button>
     </div>
-    <p class="input-note" style="margin-top:10px;">Un SMS sera envoyé pour confirmer ton identité.</p>
-    <button class="btn-p" onclick="nav('s6')" style="margin-top:auto;">Recevoir le code</button>
+    <div id="loginEmail">
+      <label class="field-label">Email</label>
+      <input type="email" class="txt-input" placeholder="kofi@email.com" autocomplete="email">
+    </div>
+    <div id="loginPhone" hidden>
+      <label class="field-label">Téléphone</label>
+      <input type="tel" class="txt-input" placeholder="+229 97 00 00 00" inputmode="tel">
+    </div>
+    <label class="field-label">Mot de passe</label>
+    <div class="pwd-wrap">
+      <input id="liPwd" type="password" class="txt-input" placeholder="••••••••" style="margin-bottom:0;">
+      <button class="pwd-eye" type="button" onclick="togglePwd('liPwd',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
+    <button class="forgot-link" onclick="openForgot()">Mot de passe oublié ?</button>
+    <p class="input-note">Tu resteras connecté 30 jours sur cet appareil.</p>
+    <button class="btn-p" onclick="nav('s7')" style="margin-top:auto;">Se connecter</button>
     <div class="switch-link">Pas encore de compte ? <span onclick="nav('s4')">S'inscrire</span></div>
   </div>
 
-  <!-- S6 OTP -->
+  <!-- S6 CONFIRMATION EMAIL -->
   <div class="screen" id="s6">
-    <button class="back-btn" onclick="history_back()">
+    <button class="back-btn" onclick="nav('s4')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       Retour
     </button>
-    <div class="form-head">
-      <h2>Code reçu ?</h2>
-      <p>On a envoyé un SMS au <strong style="color:var(--cr);font-weight:600;">+229 97 00 00 00</strong></p>
+    <div class="auth-confirm">
+      <div class="confirm-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+      <h2 class="confirm-h">Vérifie tes emails</h2>
+      <p class="confirm-p">On a envoyé un lien de confirmation à <strong id="confirmEmail">kofi@email.com</strong>. Clique dessus pour activer ton compte.</p>
+      <div class="confirm-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Le lien expire dans 24 heures</div>
     </div>
-    <div class="otp-grid">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric" id="otp1">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric" id="otp2">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric" id="otp3">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric" id="otp4">
+    <button class="btn-p" onclick="nav('s7')">J'ai confirmé mon email</button>
+    <button class="btn-s" onclick="this.textContent='Lien renvoyé ✓'" style="margin-top:10px;">Renvoyer le lien</button>
+  </div>
+
+  <!-- SFORGOT — MOT DE PASSE OUBLIÉ -->
+  <div class="screen" id="sforgot">
+    <button class="back-btn" onclick="nav('s5')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div id="forgotForm" style="display:flex;flex-direction:column;flex:1;">
+      <div class="form-head">
+        <h2>Mot de passe<br>oublié ?</h2>
+        <p>Entre ton email, on t'envoie un lien pour le réinitialiser.</p>
+      </div>
+      <label class="field-label">Email</label>
+      <input type="email" class="txt-input" placeholder="kofi@email.com" autocomplete="email">
+      <p class="input-hint">Le lien de réinitialisation expire après 30 minutes.</p>
+      <button class="btn-p" onclick="sendReset()" style="margin-top:auto;">Envoyer le lien</button>
     </div>
-    <p class="otp-resend">Pas reçu ? <span>Renvoyer le code</span> (30s)</p>
-    <button class="btn-p" onclick="nav('s7')" style="margin-top:auto;">Confirmer</button>
+    <div id="forgotDone" class="auth-confirm" hidden>
+      <div class="confirm-ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h2 class="confirm-h">Email envoyé</h2>
+      <p class="confirm-p">Si un compte existe pour cette adresse, tu recevras un lien de réinitialisation. Il expire dans 30 minutes.</p>
+      <button class="btn-p" onclick="nav('s5')" style="margin-top:18px;width:100%;">Retour à la connexion</button>
+    </div>
   </div>
 
   <!-- S7 ACCUEIL -->
@@ -1136,7 +1200,7 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
 </div><!-- #device -->
 
 <script>
-const ALL=['s1','srole','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17'];
+const ALL=['s1','srole','s2','s3','s4','s5','s6','sforgot','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17'];
 let prevScreen='s1';
 
 function nav(id){
@@ -1242,8 +1306,37 @@ document.querySelectorAll('.chip').forEach(c=>{
   });
 });
 
-/* Billet — code de validation dynamique (anti-capture) */
-(function(){
+/* AUTH — email/mot de passe (US-008/009/010) */
+function togglePwd(id,btn){var i=document.getElementById(id);if(!i)return;i.type=i.type==='password'?'text':'password';btn.classList.toggle('on');}
+function loginMethod(m){
+  document.getElementById('atEmail').classList.toggle('on',m==='email');
+  document.getElementById('atPhone').classList.toggle('on',m==='phone');
+  document.getElementById('loginEmail').hidden=(m!=='email');
+  document.getElementById('loginPhone').hidden=(m!=='phone');
+}
+function validateSignup(){
+  var email=(document.getElementById('suEmail').value||'').trim();
+  var pwd=document.getElementById('suPwd').value||'';
+  var err=document.getElementById('suErr');
+  function show(m){err.textContent=m;err.hidden=false;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){show('Entre une adresse email valide.');return;}
+  if(email.toLowerCase()==='kofi@wamiton.bj'){show('Cet email est déjà utilisé. Connecte-toi.');return;}
+  if(pwd.length<8){show('Le mot de passe doit comporter au moins 8 caractères.');return;}
+  err.hidden=true;
+  document.getElementById('confirmEmail').textContent=email;
+  nav('s6');
+}
+function openForgot(){
+  document.getElementById('forgotForm').style.display='flex';
+  document.getElementById('forgotForm').hidden=false;
+  document.getElementById('forgotDone').hidden=true;
+  nav('sforgot');
+}
+function sendReset(){
+  document.getElementById('forgotForm').style.display='none';
+  document.getElementById('forgotForm').hidden=true;
+  document.getElementById('forgotDone').hidden=false;
+}(function(){
   var tc=document.getElementById('ticketCode');
   if(!tc)return;
   function gen(){return String(Math.floor(100000+Math.random()*900000)).replace(/(\d{3})(\d{3})/,'$1 $2');}
