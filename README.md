@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/28680108/README.md)
+[README.md](https://github.com/user-attachments/files/28685043/README.md)
 # Wamiton — Prototype PWA
 
 Prototype interactif de Wamiton, billetterie d'événements culturels béninois. Mobile-first, **100 % statique, aucun build nécessaire**.
