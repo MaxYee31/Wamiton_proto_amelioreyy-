@@ -13,7 +13,7 @@
 <script src="image-slot.js"></script>
 <style>
 :root {
-  --oc:#C17D3C; --tc:#B5502A; --rd:#C8392B;
+  --oc:#C17D3C; --onac:#1A1208; --tc:#B5502A; --rd:#C8392B;
   --cr:#F5ECD7; --cr2:#EFE3C5;
   --co:#1A1208; --co2:#241910; --pp:#0a0604;
   --stage:#3D1F0F;
@@ -45,6 +45,7 @@ body{background:var(--pp);font-family:var(--fs);font-weight:300;color:var(--cr);
 }
 .screen::-webkit-scrollbar{display:none;}
 .screen.active{display:flex;animation:fadeIn .22s ease-out;}
+html.static-shot .screen.active{animation:none;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
 
 /* ---- DESKTOP (≥900px) — app centrée, sans cadre ---- */
@@ -204,7 +205,7 @@ body{background:var(--pp);font-family:var(--fs);font-weight:300;color:var(--cr);
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
 .chips::-webkit-scrollbar{display:none;}
 .chip{flex-shrink:0;font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:99px;cursor:pointer;white-space:nowrap;transition:all .15s;border:none;-webkit-tap-highlight-color:transparent;}
-.chip.on{background:var(--oc);color:var(--co);}
+.chip.on{background:var(--oc);color:var(--onac);}
 .chip.off{background:rgba(245,236,215,.06);border:1px solid rgba(245,236,215,.12);color:rgba(245,236,215,.55);}
 .home-scroll{flex:1;overflow-y:auto;padding:14px 20px 90px;scrollbar-width:none;}
 .home-scroll::-webkit-scrollbar{display:none;}
@@ -503,7 +504,7 @@ body{background:var(--pp);font-family:var(--fs);font-weight:300;color:var(--cr);
 /* ============================================================
    BOUTONS GLOBAUX
 ============================================================ */
-.btn-p{display:block;width:100%;background:var(--oc);color:var(--co);font-family:var(--fd);font-size:13px;text-transform:uppercase;letter-spacing:.04em;padding:16px 20px;border-radius:12px;border:none;cursor:pointer;text-align:center;transition:background .15s,transform .1s;-webkit-tap-highlight-color:transparent;user-select:none;}
+.btn-p{display:block;width:100%;background:var(--oc);color:var(--onac);font-family:var(--fd);font-size:13px;text-transform:uppercase;letter-spacing:.04em;padding:16px 20px;border-radius:12px;border:none;cursor:pointer;text-align:center;transition:background .15s,transform .1s;-webkit-tap-highlight-color:transparent;user-select:none;}
 .btn-p:active{transform:scale(.97);background:#aa6c33;}
 .btn-s{display:block;width:100%;background:rgba(245,236,215,.06);color:rgba(245,236,215,.65);font-family:var(--fs);font-size:14px;font-weight:400;padding:15px 20px;border-radius:12px;border:1.5px solid rgba(245,236,215,.14);cursor:pointer;text-align:center;transition:background .15s,transform .1s;-webkit-tap-highlight-color:transparent;}
 .btn-s:active{transform:scale(.97);}
@@ -518,6 +519,321 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
 @media(min-width:900px){
   .auth-zan svg{width:160px;}
 }
+
+/* ============================================================
+   ESPACE ORGANISATEUR
+============================================================ */
+/* En-têtes & conteneurs génériques orga */
+.o-top{padding:52px 20px 14px;flex-shrink:0;}
+.o-eyebrow{font-family:var(--fm);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--oc);margin-bottom:8px;}
+.o-h1{font-family:var(--fd);font-size:27px;line-height:1;color:var(--cr);}
+.o-h1 em{font-family:var(--fi);font-style:italic;font-weight:400;color:var(--oc);}
+.o-sub{font-family:var(--fi);font-style:italic;font-size:16px;color:rgba(245,236,215,.45);margin-top:5px;}
+.o-scroll{flex:1;overflow-y:auto;padding:14px 20px 96px;scrollbar-width:none;}
+.o-scroll::-webkit-scrollbar{display:none;}
+.o-screen{background:var(--co);flex-direction:column;}
+
+/* Onboarding orga (OONB) */
+#oonb{background:var(--co);padding:54px 24px max(28px,env(safe-area-inset-bottom));overflow-y:auto;}
+.oo-zan{display:flex;justify-content:center;margin-bottom:8px;}
+.oo-head h2{font-family:var(--fd);font-size:28px;line-height:.98;color:var(--cr);margin-bottom:10px;}
+.oo-head h2 em{font-family:var(--fi);font-style:italic;font-weight:400;color:var(--oc);}
+.oo-head p{font-size:14px;color:rgba(245,236,215,.55);line-height:1.6;margin-bottom:22px;max-width:34ch;}
+.oo-perks{display:flex;flex-direction:column;gap:9px;margin-bottom:22px;}
+.oo-perk{display:flex;align-items:center;gap:12px;background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:13px;padding:13px 14px;}
+.oo-perk-ic{width:38px;height:38px;border-radius:10px;background:rgba(193,125,60,.12);border:1px solid rgba(193,125,60,.2);display:flex;align-items:center;justify-content:center;color:var(--oc);flex-shrink:0;}
+.oo-perk-t{font-family:var(--fs);font-weight:600;font-size:13.5px;color:var(--cr);}
+.oo-perk-s{font-size:12px;color:rgba(245,236,215,.45);margin-top:2px;line-height:1.4;}
+
+/* Carte de statut (badge) — utilisée dashboard + détail */
+.st-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:99px;white-space:nowrap;}
+.st-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;}
+.st-pub{color:#5FB878;background:rgba(95,184,120,.12);border:1px solid rgba(95,184,120,.28);}
+.st-wait{color:#D9A23C;background:rgba(217,162,60,.12);border:1px solid rgba(217,162,60,.28);}
+.st-past{color:rgba(245,236,215,.4);background:rgba(245,236,215,.06);border:1px solid rgba(245,236,215,.12);}
+.st-draft{color:rgba(245,236,215,.5);background:transparent;border:1px dashed rgba(245,236,215,.22);}
+.st-draft::before{background:transparent;border:1.5px solid currentColor;}
+
+/* Dashboard — barre filtre statut */
+.od-filter{display:flex;gap:8px;overflow-x:auto;padding:0 20px 12px;scrollbar-width:none;flex-shrink:0;}
+.od-filter::-webkit-scrollbar{display:none;}
+
+/* Carte événement orga */
+.oe-card{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:16px;padding:15px 16px;margin-bottom:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .2s,transform .12s;}
+.oe-card:active{transform:scale(.985);}
+.oe-card:hover{border-color:rgba(193,125,60,.3);}
+.oe-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:9px;}
+.oe-date{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--oc);margin-bottom:5px;}
+.oe-title{font-family:var(--fd);font-size:17px;line-height:1.05;color:var(--cr);margin-bottom:3px;}
+.oe-venue{font-size:12px;color:rgba(245,236,215,.45);display:flex;align-items:center;gap:5px;}
+.oe-kpi{display:flex;align-items:stretch;gap:10px;margin-top:13px;padding-top:13px;border-top:1px solid rgba(245,236,215,.06);}
+.oe-kc{flex:1;min-width:0;}
+.oe-kn{font-family:var(--fd);font-size:16px;color:var(--cr);line-height:1;margin-bottom:4px;}
+.oe-kn .u{font-family:var(--fm);font-size:10px;color:rgba(245,236,215,.4);font-weight:400;letter-spacing:.04em;}
+.oe-kl{font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,236,215,.4);}
+.oe-kdiv{width:1px;background:rgba(245,236,215,.07);}
+.oe-bar{height:5px;border-radius:3px;background:rgba(245,236,215,.08);overflow:hidden;margin-top:11px;}
+.oe-bar > i{display:block;height:100%;background:var(--oc);border-radius:3px;}
+.oe-card.draft{opacity:.92;}
+.oe-card.draft .oe-title{color:rgba(245,236,215,.7);}
+.oe-resume{display:flex;align-items:center;gap:7px;margin-top:12px;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--oc);}
+
+/* Bouton flottant créer (FAB) */
+.o-fab{position:absolute;right:18px;bottom:90px;z-index:90;display:flex;align-items:center;gap:8px;background:var(--oc);color:var(--onac);border:none;font-family:var(--fd);font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:14px 18px;border-radius:99px;cursor:pointer;box-shadow:0 10px 26px -8px rgba(193,125,60,.6);-webkit-tap-highlight-color:transparent;transition:transform .12s;}
+.o-fab:active{transform:scale(.95);}
+
+/* Détail événement orga (OEVENT) */
+.oev-head{padding:52px 20px 16px;flex-shrink:0;}
+.oev-back{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;color:rgba(245,236,215,.5);cursor:pointer;margin-bottom:18px;border:none;background:none;padding:0;-webkit-tap-highlight-color:transparent;}
+.oev-name{font-family:var(--fd);font-size:24px;line-height:1;color:var(--cr);margin:10px 0 8px;}
+.oev-meta{font-size:13px;color:rgba(245,236,215,.55);line-height:1.6;}
+.oev-meta b{color:var(--oc);font-weight:400;font-family:var(--fm);font-size:11px;letter-spacing:.06em;}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.kpi-cell{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:14px;padding:15px 16px;}
+.kpi-cell.wide{grid-column:1 / -1;}
+.kpi-n{font-family:var(--fd);font-size:24px;color:var(--cr);line-height:1;margin-bottom:6px;}
+.kpi-n .u{font-family:var(--fm);font-size:12px;color:rgba(245,236,215,.4);font-weight:400;}
+.kpi-n.acc{color:var(--oc);}
+.kpi-l{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,236,215,.42);}
+.kpi-sub{font-size:11.5px;color:rgba(245,236,215,.45);margin-top:6px;}
+
+/* Récap dates clés */
+.dates-card{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:14px;padding:6px 16px;margin-bottom:14px;}
+.dk-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(245,236,215,.06);}
+.dk-row:last-child{border-bottom:none;}
+.dk-ic{width:32px;height:32px;border-radius:9px;background:rgba(193,125,60,.1);display:flex;align-items:center;justify-content:center;color:var(--oc);flex-shrink:0;}
+.dk-txt{flex:1;min-width:0;}
+.dk-l{font-size:13px;color:var(--cr);}
+.dk-d{font-family:var(--fm);font-size:11px;letter-spacing:.04em;color:rgba(245,236,215,.45);margin-top:2px;}
+
+/* Liste d'actions (détail) */
+.act-list{display:flex;flex-direction:column;gap:9px;margin-bottom:14px;}
+.act-row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:13px;padding:14px 15px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .18s;}
+.act-row:active{border-color:rgba(193,125,60,.4);}
+.act-ic{width:38px;height:38px;border-radius:10px;background:rgba(193,125,60,.1);border:1px solid rgba(193,125,60,.18);display:flex;align-items:center;justify-content:center;color:var(--oc);flex-shrink:0;}
+.act-tx{flex:1;min-width:0;}
+.act-l{font-family:var(--fs);font-weight:600;font-size:14px;color:var(--cr);}
+.act-s{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.4);margin-top:2px;}
+.act-arr{color:rgba(245,236,215,.22);flex-shrink:0;}
+.lock-note{display:flex;align-items:flex-start;gap:9px;font-size:11.5px;line-height:1.5;color:rgba(245,236,215,.45);background:rgba(245,236,215,.03);border:1px solid rgba(245,236,215,.07);border-radius:11px;padding:11px 13px;}
+.lock-note svg{flex-shrink:0;margin-top:1px;color:rgba(245,236,215,.4);}
+
+/* WIZARD création (OCREATE) */
+#ocreate{background:var(--co);flex-direction:column;}
+.wz-head{padding:52px 20px 12px;flex-shrink:0;}
+.wz-titlerow{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.wz-title{font-family:var(--fd);font-size:19px;color:var(--cr);}
+.wz-steps{display:flex;align-items:center;gap:0;}
+.wz-st{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;}
+.wz-dot{width:24px;height:24px;border-radius:50%;background:var(--co2);border:1.5px solid rgba(245,236,215,.14);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:10px;color:rgba(245,236,215,.4);transition:all .25s;}
+.wz-stl{font-family:var(--fm);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,236,215,.32);transition:color .25s;white-space:nowrap;}
+.wz-line{flex:1;height:1.5px;background:rgba(245,236,215,.1);margin:0 4px;margin-bottom:18px;border-radius:2px;transition:background .25s;}
+.wz-st.done .wz-dot{background:var(--oc);border-color:var(--oc);color:var(--co);}
+.wz-st.done .wz-stl{color:rgba(245,236,215,.5);}
+.wz-st.cur .wz-dot{background:rgba(193,125,60,.16);border-color:var(--oc);color:var(--oc);box-shadow:0 0 0 4px rgba(193,125,60,.1);}
+.wz-st.cur .wz-stl{color:var(--cr);}
+.wz-line.done{background:var(--oc);}
+.wz-body{flex:1;overflow-y:auto;padding:8px 20px 110px;scrollbar-width:none;}
+.wz-body::-webkit-scrollbar{display:none;}
+.wz-step{display:none;animation:fadeIn .25s ease-out;}
+.wz-step.on{display:block;}
+.wz-sec-h{font-family:var(--fd);font-size:21px;color:var(--cr);margin-bottom:4px;line-height:1;}
+.wz-sec-p{font-size:13px;color:rgba(245,236,215,.5);line-height:1.55;margin-bottom:20px;}
+.wz-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.txt-area{width:100%;background:var(--co2);border:1.5px solid rgba(245,236,215,.12);border-radius:12px;padding:14px 16px;font-family:var(--fs);font-size:15px;color:var(--cr);outline:none;transition:border-color .2s;margin-bottom:14px;resize:none;min-height:92px;line-height:1.5;}
+.txt-area:focus{border-color:var(--oc);}
+.txt-area::placeholder{color:rgba(245,236,215,.3);}
+.cat-pick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.cat-opt{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-radius:99px;background:rgba(245,236,215,.06);border:1px solid rgba(245,236,215,.12);color:rgba(245,236,215,.55);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;}
+.cat-opt.on{background:var(--oc);border-color:var(--oc);color:var(--onac);}
+.in-suffix{position:relative;margin-bottom:14px;}
+.in-suffix .txt-input{margin-bottom:0;padding-right:64px;}
+.in-suffix .sfx{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:var(--fm);font-size:11px;letter-spacing:.08em;color:rgba(245,236,215,.4);pointer-events:none;}
+
+/* Catégories de billets (wizard step 2) */
+.tk-cat{background:var(--co2);border:1.5px solid rgba(245,236,215,.1);border-radius:14px;padding:14px;margin-bottom:10px;}
+.tk-cat-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
+.tk-name-in{background:none;border:none;outline:none;font-family:var(--fd);font-size:15px;color:var(--cr);flex:1;min-width:0;}
+.tk-name-in::placeholder{color:rgba(245,236,215,.3);}
+.tk-del{background:none;border:none;color:rgba(245,236,215,.3);cursor:pointer;padding:4px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.tk-del:active{color:var(--rd);}
+.tk-fields{display:grid;grid-template-columns:1.1fr 1fr;gap:9px;}
+.tk-mini-l{font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,236,215,.4);margin-bottom:6px;display:block;}
+.tk-mini-in{width:100%;background:var(--co);border:1.5px solid rgba(245,236,215,.1);border-radius:10px;padding:11px 12px;font-family:var(--fm);font-size:14px;color:var(--cr);outline:none;transition:border-color .2s;}
+.tk-mini-in:focus{border-color:var(--oc);}
+.tk-add{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:rgba(193,125,60,.07);border:1.5px dashed rgba(193,125,60,.35);border-radius:13px;padding:14px;cursor:pointer;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--oc);-webkit-tap-highlight-color:transparent;margin-bottom:18px;transition:background .15s;}
+.tk-add:active{background:rgba(193,125,60,.14);}
+.tk-add.off{opacity:.4;pointer-events:none;}
+
+/* Simulateur de recette */
+.sim-box{background:linear-gradient(165deg,rgba(193,125,60,.1),rgba(193,125,60,.03));border:1px solid rgba(193,125,60,.2);border-radius:14px;padding:16px;margin-top:4px;}
+.sim-h{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--oc);margin-bottom:13px;display:flex;align-items:center;gap:7px;}
+.sim-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(245,236,215,.6);padding:6px 0;}
+.sim-row.net{border-top:1px dashed rgba(193,125,60,.3);margin-top:6px;padding-top:11px;color:var(--cr);}
+.sim-row .sv{font-family:var(--fm);font-size:13px;color:rgba(245,236,215,.75);}
+.sim-row.net .sv{font-family:var(--fd);font-size:17px;color:var(--oc);}
+.sim-row .neg{color:#E0937F;}
+
+/* Capacité totale */
+.cap-pill{display:flex;align-items:center;justify-content:space-between;background:var(--co2);border:1px solid rgba(245,236,215,.08);border-radius:12px;padding:13px 16px;margin-bottom:16px;}
+.cap-l{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,236,215,.45);}
+.cap-v{font-family:var(--fd);font-size:18px;color:var(--cr);}
+
+/* Dates clés (wizard step 3) */
+.dk-field{margin-bottom:16px;}
+.dk-field .field-label{display:flex;align-items:center;justify-content:space-between;}
+.dk-result{font-family:var(--fm);font-size:11px;color:var(--oc);letter-spacing:.04em;text-transform:none;}
+.range-row{display:flex;align-items:center;gap:14px;}
+.range-row input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;background:rgba(245,236,215,.14);outline:none;}
+.range-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--oc);cursor:pointer;border:3px solid var(--co);box-shadow:0 0 0 1px var(--oc);}
+.range-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--oc);cursor:pointer;border:3px solid var(--co);}
+.range-val{font-family:var(--fd);font-size:14px;color:var(--cr);min-width:62px;text-align:right;}
+.alert-box{display:flex;align-items:flex-start;gap:10px;font-size:12.5px;line-height:1.5;color:#E8B04E;background:rgba(217,162,60,.1);border:1px solid rgba(217,162,60,.3);border-radius:12px;padding:12px 14px;margin-bottom:16px;}
+.alert-box svg{flex-shrink:0;margin-top:1px;}
+.alert-box.hide{display:none;}
+
+/* Photos (wizard step 4) */
+.cover-slot{width:100%;height:180px;border-radius:14px;overflow:hidden;margin-bottom:8px;display:block;}
+.req-tag{font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--rd);background:rgba(200,57,43,.12);border:1px solid rgba(200,57,43,.25);padding:3px 8px;border-radius:99px;margin-left:8px;}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.photo-grid image-slot{width:100%;height:88px;border-radius:11px;overflow:hidden;display:block;}
+
+/* Récap (wizard step 5) */
+.recap-card{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.recap-hd{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,236,215,.4);padding:13px 16px 0;display:flex;align-items:center;justify-content:space-between;}
+.recap-hd .edit{color:var(--oc);cursor:pointer;letter-spacing:.08em;}
+.recap-row{display:flex;justify-content:space-between;gap:14px;padding:11px 16px;border-bottom:1px solid rgba(245,236,215,.05);}
+.recap-row:last-child{border-bottom:none;}
+.recap-k{font-size:13px;color:rgba(245,236,215,.5);flex-shrink:0;}
+.recap-v{font-family:var(--fs);font-weight:600;font-size:13px;color:var(--cr);text-align:right;}
+.val-note{display:flex;align-items:center;gap:9px;font-size:12.5px;line-height:1.5;color:rgba(245,236,215,.55);background:rgba(95,184,120,.07);border:1px solid rgba(95,184,120,.2);border-radius:12px;padding:12px 14px;margin-bottom:16px;}
+.val-note svg{flex-shrink:0;color:#5FB878;}
+
+/* Footer wizard (nav) */
+.wz-foot{position:absolute;bottom:0;left:0;right:0;background:rgba(26,18,8,.96);backdrop-filter:blur(20px);border-top:1px solid rgba(245,236,215,.08);padding:14px 20px max(18px,env(safe-area-inset-bottom));display:flex;gap:10px;z-index:100;}
+.wz-foot .btn-back{flex:0 0 auto;width:54px;background:var(--co2);border:1.5px solid rgba(245,236,215,.12);border-radius:12px;color:var(--cr);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.wz-foot .btn-p{flex:1;}
+
+/* SUBMIT confirmation (OSUBMIT) */
+#osubmit{background:var(--co);align-items:center;justify-content:center;text-align:center;overflow-y:auto;}
+.os-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding:52px 26px max(36px,env(safe-area-inset-bottom));}
+.os-ic{width:84px;height:84px;border-radius:50%;background:rgba(217,162,60,.12);border:1px solid rgba(217,162,60,.3);display:flex;align-items:center;justify-content:center;color:#D9A23C;margin-bottom:20px;}
+.os-title{font-family:var(--fd);font-size:28px;line-height:1;color:var(--cr);margin-bottom:10px;}
+.os-title em{font-family:var(--fi);font-style:italic;font-weight:400;color:var(--oc);}
+.os-sub{font-size:14px;color:rgba(245,236,215,.6);line-height:1.65;max-width:30ch;margin-bottom:22px;}
+.os-tl{width:100%;background:var(--co2);border-radius:14px;padding:16px 18px;text-align:left;margin-bottom:24px;}
+.os-tl-row{display:flex;gap:13px;padding:8px 0;}
+.os-tl-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:2px;border:2px solid rgba(245,236,215,.2);}
+.os-tl-row.on .os-tl-dot{background:var(--oc);border-color:var(--oc);}
+.os-tl-row.on .os-tl-t{color:var(--cr);}
+.os-tl-t{font-size:13px;color:rgba(245,236,215,.5);}
+.os-tl-s{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.35);margin-top:2px;}
+
+/* VENTES (OSALES) */
+.ev-select{display:flex;align-items:center;gap:10px;background:var(--co2);border:1px solid rgba(245,236,215,.08);border-radius:13px;padding:13px 15px;margin-bottom:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.ev-select .es-tx{flex:1;min-width:0;}
+.es-l{font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,236,215,.4);margin-bottom:3px;}
+.es-v{font-family:var(--fd);font-size:15px;color:var(--cr);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.es-arr{color:rgba(245,236,215,.3);flex-shrink:0;}
+.kpi3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+.kpi3 .k3{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:13px;padding:13px 12px;text-align:center;}
+.k3-n{font-family:var(--fd);font-size:19px;color:var(--cr);line-height:1;margin-bottom:5px;}
+.k3-n.acc{color:var(--oc);}
+.k3-l{font-family:var(--fm);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,236,215,.42);line-height:1.3;}
+.live-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#5FB878;margin-bottom:12px;}
+.live-tag .ld{width:6px;height:6px;border-radius:50%;background:#5FB878;}
+@media(prefers-reduced-motion:no-preference){.live-tag .ld{animation:dotPulse 2s ease-in-out infinite;}}
+.panel{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:14px;padding:16px;margin-bottom:14px;}
+.panel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.panel-t{font-family:var(--fd);font-size:14px;color:var(--cr);}
+.panel-s{font-family:var(--fm);font-size:10px;letter-spacing:.06em;color:rgba(245,236,215,.4);}
+/* Graphique barres */
+.chart{display:flex;align-items:flex-end;gap:7px;height:118px;padding-top:8px;}
+.chart .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;height:100%;justify-content:flex-end;}
+.chart .bar{width:100%;max-width:26px;background:linear-gradient(180deg,var(--oc),rgba(193,125,60,.45));border-radius:5px 5px 2px 2px;transition:height .6s cubic-bezier(.4,0,.2,1);}
+.chart .bar.peak{background:linear-gradient(180deg,#E0974A,var(--oc));}
+.chart .bar-x{font-family:var(--fm);font-size:8.5px;letter-spacing:.04em;color:rgba(245,236,215,.4);}
+/* Répartition par catégorie */
+.cat-stat{margin-bottom:14px;}
+.cat-stat:last-child{margin-bottom:0;}
+.cat-stat-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;}
+.cs-name{font-family:var(--fs);font-weight:600;font-size:13px;color:var(--cr);}
+.cs-num{font-family:var(--fm);font-size:11px;color:rgba(245,236,215,.5);}
+.cs-num b{color:var(--oc);font-weight:400;}
+.cs-bar{height:7px;border-radius:4px;background:rgba(245,236,215,.07);overflow:hidden;}
+.cs-bar > i{display:block;height:100%;border-radius:4px;}
+/* Reversements (OPAYOUT) */
+.balance{background:linear-gradient(160deg,rgba(193,125,60,.16),rgba(193,125,60,.04));border:1px solid rgba(193,125,60,.25);border-radius:16px;padding:20px;margin-bottom:18px;}
+.bal-l{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--oc);margin-bottom:9px;}
+.bal-v{font-family:var(--fd);font-size:30px;color:var(--cr);line-height:1;margin-bottom:6px;}
+.bal-s{font-size:12px;color:rgba(245,236,215,.5);line-height:1.5;}
+.bal-method{display:flex;align-items:center;gap:9px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(193,125,60,.2);font-family:var(--fm);font-size:11px;letter-spacing:.04em;color:rgba(245,236,215,.6);}
+.bal-method .mm{width:26px;height:26px;border-radius:7px;background:#FFCC00;color:#1A1208;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:8px;flex-shrink:0;}
+.pay-row{display:flex;align-items:center;gap:13px;background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:13px;padding:14px 15px;margin-bottom:10px;}
+.pay-row .pr-ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pr-ic.ok{background:rgba(95,184,120,.12);color:#5FB878;}
+.pr-ic.wait{background:rgba(217,162,60,.12);color:#D9A23C;}
+.pr-tx{flex:1;min-width:0;}
+.pr-ev{font-family:var(--fs);font-weight:600;font-size:13.5px;color:var(--cr);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pr-d{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.4);margin-top:3px;}
+.pr-amt{text-align:right;flex-shrink:0;}
+.pr-a{font-family:var(--fd);font-size:15px;color:var(--cr);}
+.pr-st{font-family:var(--fm);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
+.pr-st.ok{color:#5FB878;}
+.pr-st.wait{color:#D9A23C;}
+
+/* PROFIL ORGA (OPROFILE) — réutilise prof2-* + spécifique */
+.opr-switch{display:flex;align-items:center;gap:11px;width:100%;background:rgba(193,125,60,.08);border:1.5px solid rgba(193,125,60,.25);border-radius:14px;padding:14px 15px;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:12px;transition:background .15s;}
+.opr-switch:active{background:rgba(193,125,60,.16);}
+.opr-switch .sw-ic{width:38px;height:38px;border-radius:10px;background:rgba(193,125,60,.16);display:flex;align-items:center;justify-content:center;color:var(--oc);flex-shrink:0;}
+.opr-switch .sw-tx{flex:1;text-align:left;}
+.opr-switch .sw-l{font-family:var(--fs);font-weight:600;font-size:14px;color:var(--cr);}
+.opr-switch .sw-s{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.45);margin-top:2px;}
+
+/* Bottom nav orga (4 onglets) */
+.bnav-org .bn-item.on .bn-ico,.bnav-org .bn-item.on .bn-lbl{color:var(--oc);}
+
+/* ============================================================
+   THÈME ESPACE ORGANISATEUR — « Console sombre » (terracotta)
+   Accent secondaire #B5502A + surfaces plus profondes.
+   100% brand book : cocoa / terracotta / cream.
+============================================================ */
+#oonb,#odash,#oevent,#ocreate,#osubmit,#osales,#opayout,#oprofile{
+  --oc:#B5502A;          /* accent → terracotta */
+  --onac:var(--cr);      /* texte sur accent → crème (pairing brand) */
+  --co:#14100a;          /* surface console, plus profonde que cocoa */
+  --co2:#201712;         /* carte surélevée */
+  --stage:#311a0d;
+}
+.bnav-org{background:rgba(18,13,8,.96);}
+#ocreate .wz-foot{background:rgba(18,13,8,.96);}
+/* glows & tints accent : ocre → terracotta (composants orga only) */
+.o-fab{box-shadow:0 10px 26px -8px rgba(181,80,42,.55);}
+.oo-perk-ic,.dk-ic{background:rgba(181,80,42,.12);border-color:rgba(181,80,42,.2);}
+.act-ic{background:rgba(181,80,42,.1);border:1px solid rgba(181,80,42,.2);}
+.tk-add{background:rgba(181,80,42,.07);border-color:rgba(181,80,42,.35);}
+.tk-add:active{background:rgba(181,80,42,.14);}
+.sim-box{background:linear-gradient(165deg,rgba(181,80,42,.12),rgba(181,80,42,.03));border-color:rgba(181,80,42,.22);}
+.sim-row.net{border-top-color:rgba(181,80,42,.3);}
+.balance{background:linear-gradient(160deg,rgba(181,80,42,.16),rgba(181,80,42,.04));border-color:rgba(181,80,42,.25);}
+.bal-method{border-top-color:rgba(181,80,42,.2);}
+.wz-st.cur .wz-dot{background:rgba(181,80,42,.16);box-shadow:0 0 0 4px rgba(181,80,42,.1);}
+.opr-switch{background:rgba(181,80,42,.08);border-color:rgba(181,80,42,.25);}
+.opr-switch:active{background:rgba(181,80,42,.16);}
+.opr-switch .sw-ic{background:rgba(181,80,42,.16);}
+.oe-card:hover{border-color:rgba(181,80,42,.3);}
+.act-row:active{border-color:rgba(181,80,42,.4);}
+.tk-cat:focus-within{border-color:rgba(181,80,42,.4);}
+/* éléments partagés : terracotta uniquement dans l'espace orga */
+#odash .avatar{background:rgba(181,80,42,.15);border-color:rgba(181,80,42,.35);color:var(--oc);}
+#oprofile .prof2-av{background:linear-gradient(150deg,rgba(181,80,42,.32),rgba(181,80,42,.1));border-color:rgba(181,80,42,.42);color:var(--oc);}
+#oprofile .prof2-verif{background:var(--oc);}
+#oprofile .prof2-member{color:var(--oc);background:rgba(181,80,42,.12);border-color:rgba(181,80,42,.28);}
+#oprofile .p2-ic{background:rgba(181,80,42,.1);border-color:rgba(181,80,42,.18);}
+/* marqueur console persistant */
+.oconsole{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--oc);background:rgba(181,80,42,.16);border:1px solid rgba(181,80,42,.34);padding:4px 9px;border-radius:99px;vertical-align:middle;margin-left:9px;}
+.oconsole::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--oc);}
+
 </style>
 </head>
 <body>
@@ -649,10 +965,10 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
           </div>
           <div class="rc-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
         </button>
-        <button class="role-card" onclick="nav('s2')">
+        <button class="role-card" onclick="nav('oonb')">
           <div class="rc-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
           <div class="rc-txt">
-            <div class="rc-name">J'organise<span class="rc-tag">Bientôt</span></div>
+            <div class="rc-name">J'organise</div>
             <div class="rc-desc">Crée tes événements, vends tes billets, suis tes ventes.</div>
           </div>
           <div class="rc-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -1197,10 +1513,570 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
     <div class="ref-tag" style="color:rgba(245,236,215,.2);">WMT-2026-3104 · 1× VIP</div>
   </div>
 
+  <!-- ============================================================
+       ESPACE ORGANISATEUR
+  ============================================================ -->
+
+  <!-- OONB — DEVENIR ORGANISATEUR -->
+  <div class="screen" id="oonb">
+    <button class="back-btn" onclick="nav('srole')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div class="oo-zan"><svg width="92" viewBox="0 0 240 320"><use href="#z-oc"/></svg></div>
+    <div class="oo-head">
+      <h2>Deviens<br><em>organisateur</em></h2>
+      <p>Crée tes événements, vends tes billets et suis tes recettes — directement depuis Wamiton.</p>
+    </div>
+    <div class="oo-perks">
+      <div class="oo-perk">
+        <div class="oo-perk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div><div class="oo-perk-t">Billetterie en ligne</div><div class="oo-perk-s">Catégories, quotas et prix en quelques minutes.</div></div>
+      </div>
+      <div class="oo-perk">
+        <div class="oo-perk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+        <div><div class="oo-perk-t">Ventes en temps réel</div><div class="oo-perk-s">Suis ton remplissage et ta recette en direct.</div></div>
+      </div>
+      <div class="oo-perk">
+        <div class="oo-perk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div><div class="oo-perk-t">Reversement Mobile Money</div><div class="oo-perk-s">Tes recettes sur MTN ou Moov, 48h après l'événement.</div></div>
+      </div>
+    </div>
+    <div class="auth-scroll" style="flex:initial;">
+      <label class="field-label">Nom de la structure</label>
+      <input type="text" class="txt-input" value="Gangbé Productions" placeholder="Ex : Gangbé Productions">
+      <label class="field-label">Type d'organisateur</label>
+      <div class="cat-pick">
+        <button class="cat-opt on" onclick="pickOne(this)">Producteur</button>
+        <button class="cat-opt" onclick="pickOne(this)">Salle / Lieu</button>
+        <button class="cat-opt" onclick="pickOne(this)">Collectif</button>
+        <button class="cat-opt" onclick="pickOne(this)">Indépendant</button>
+      </div>
+      <label class="field-label">Personne à contacter</label>
+      <input type="text" class="txt-input" value="Kofi Koffi" placeholder="Nom complet">
+      <label class="field-label">Téléphone professionnel</label>
+      <input type="tel" class="txt-input" value="+229 97 12 34 56" inputmode="tel" style="margin-bottom:0;">
+    </div>
+    <button class="btn-p" onclick="nav('odash')" style="margin-top:18px;">Activer mon espace orga</button>
+    <p class="input-note" style="text-align:center;margin-top:12px;margin-bottom:0;">Tu pourras revenir à l'espace participant à tout moment.</p>
+  </div>
+
+  <!-- ODASH — TABLEAU DE BORD -->
+  <div class="screen o-screen" id="odash">
+    <div class="o-top">
+      <div class="home-topbar" style="margin-bottom:16px;">
+        <div>
+          <div class="o-eyebrow">Espace organisateur <span class="oconsole">Console</span></div>
+          <div class="o-h1">Gangbé <em>Productions</em></div>
+        </div>
+        <div class="avatar" onclick="nav('oprofile')">GP</div>
+      </div>
+      <div class="prof2-stats" style="margin-bottom:0;">
+        <div class="ps-cell"><div class="ps-num" style="color:var(--oc);">1,11 M</div><div class="ps-lbl">Recette (XOF)</div></div>
+        <div class="ps-div"></div>
+        <div class="ps-cell"><div class="ps-num">4</div><div class="ps-lbl">Événements</div></div>
+        <div class="ps-div"></div>
+        <div class="ps-cell"><div class="ps-num">822</div><div class="ps-lbl">Billets vendus</div></div>
+      </div>
+    </div>
+    <div class="od-filter">
+      <button class="chip on">Tous</button>
+      <button class="chip off">Publiés</button>
+      <button class="chip off">En attente</button>
+      <button class="chip off">Brouillons</button>
+      <button class="chip off">Passés</button>
+    </div>
+    <div class="o-scroll" style="padding-top:4px;">
+      <!-- Publié actif -->
+      <div class="oe-card" onclick="openEvent('vaudou')">
+        <div class="oe-card-top">
+          <div>
+            <div class="oe-date">Sam 7 Juin · 20h00</div>
+            <div class="oe-title">VAUDOU NIGHTS — Édition Spéciale</div>
+            <div class="oe-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Champ de Foire · Cotonou</div>
+          </div>
+          <span class="st-badge st-pub">Publié</span>
+        </div>
+        <div class="oe-kpi">
+          <div class="oe-kc"><div class="oe-kn">342<span class="u"> / 500</span></div><div class="oe-kl">Vendus</div></div>
+          <div class="oe-kdiv"></div>
+          <div class="oe-kc"><div class="oe-kn">1,11 M<span class="u"> XOF</span></div><div class="oe-kl">Recette</div></div>
+          <div class="oe-kdiv"></div>
+          <div class="oe-kc"><div class="oe-kn acc" style="color:var(--oc);">68<span class="u">%</span></div><div class="oe-kl">Remplissage</div></div>
+        </div>
+        <div class="oe-bar"><i style="width:68%;"></i></div>
+      </div>
+      <!-- En attente de validation -->
+      <div class="oe-card" onclick="openEvent('jazz')">
+        <div class="oe-card-top">
+          <div>
+            <div class="oe-date">Ven 13 Juin · 19h30</div>
+            <div class="oe-title">Jazz au Bénin — Orchestre National</div>
+            <div class="oe-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Palais des Congrès · Cotonou</div>
+          </div>
+          <span class="st-badge st-wait">En attente</span>
+        </div>
+        <div class="lock-note" style="margin-top:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Soumis à l'équipe Wamiton. Validation sous 24-48h avant mise en vente.
+        </div>
+      </div>
+      <!-- Brouillon -->
+      <div class="oe-card draft" onclick="nav('ocreate')">
+        <div class="oe-card-top">
+          <div>
+            <div class="oe-date" style="color:rgba(245,236,215,.4);">Date à définir</div>
+            <div class="oe-title">Showcase Slam #4</div>
+            <div class="oe-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lieu non renseigné</div>
+          </div>
+          <span class="st-badge st-draft">Brouillon</span>
+        </div>
+        <div class="oe-resume">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Reprendre la création · étape 2/5
+        </div>
+      </div>
+      <!-- Passé -->
+      <div class="oe-card" onclick="openEvent('afro')">
+        <div class="oe-card-top">
+          <div>
+            <div class="oe-date" style="color:rgba(245,236,215,.45);">Sam 17 Mai · 21h00</div>
+            <div class="oe-title" style="color:rgba(245,236,215,.75);">AfroFusion — Nuit de la Musique</div>
+            <div class="oe-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Fondation Zinsou</div>
+          </div>
+          <span class="st-badge st-past">Passé</span>
+        </div>
+        <div class="oe-kpi">
+          <div class="oe-kc"><div class="oe-kn">480<span class="u"> / 480</span></div><div class="oe-kl">Complet</div></div>
+          <div class="oe-kdiv"></div>
+          <div class="oe-kc"><div class="oe-kn">2,30 M<span class="u"> XOF</span></div><div class="oe-kl">Recette</div></div>
+          <div class="oe-kdiv"></div>
+          <div class="oe-kc"><div class="oe-kn" style="color:#5FB878;">Reversé</div><div class="oe-kl">Statut</div></div>
+        </div>
+      </div>
+    </div>
+    <button class="o-fab" onclick="startCreate()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Créer
+    </button>
+    <div class="bnav bnav-org">
+      <button class="bn-item on" onclick="nav('odash')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div><span class="bn-lbl">Bord</span></button>
+      <button class="bn-item" onclick="startCreate()"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><span class="bn-lbl">Créer</span></button>
+      <button class="bn-item" onclick="nav('osales')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Ventes</span></button>
+      <button class="bn-item" onclick="nav('oprofile')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="bn-lbl">Profil</span></button>
+    </div>
+  </div>
+
+  <!-- OEVENT — DÉTAIL ÉVÉNEMENT ORGA -->
+  <div class="screen o-screen" id="oevent">
+    <div class="oev-head">
+      <button class="oev-back" onclick="nav('odash')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Tableau de bord
+      </button>
+      <span class="st-badge st-pub" id="oevBadge">Publié · en vente</span>
+      <div class="oev-name" id="oevName">VAUDOU NIGHTS — Édition Spéciale</div>
+      <div class="oev-meta" id="oevMeta"><b>SAM 7 JUIN · 20H00</b><br>Champ de Foire · Cotonou</div>
+    </div>
+    <div class="o-scroll" style="padding-top:10px;">
+      <div class="alert-box" id="oevPending" style="display:none;background:rgba(217,162,60,.1);border-color:rgba(217,162,60,.3);color:#E8B04E;margin-bottom:14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        En cours de validation par l'équipe Wamiton. Mise en vente dès l'approbation (24-48h). Tu seras notifié.
+      </div>
+      <div class="kpi-grid" id="oevKpi">
+        <div class="kpi-cell"><div class="kpi-n"><span id="oevSold">342</span><span class="u"> / <span id="oevCap">500</span></span></div><div class="kpi-l" id="oevSoldL">Billets vendus</div></div>
+        <div class="kpi-cell"><div class="kpi-n acc" id="oevRev">1,11 M</div><div class="kpi-l">Recette XOF</div></div>
+        <div class="kpi-cell wide">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+            <div class="kpi-n" style="font-size:20px;margin-bottom:0;"><span id="oevFill">68</span><span class="u">% remplissage</span></div>
+            <div class="kpi-l" id="oevLeft">158 places restantes</div>
+          </div>
+          <div class="oe-bar" style="height:7px;"><i id="oevFillBar" style="width:68%;"></i></div>
+        </div>
+      </div>
+      <div id="oevDatesWrap">
+        <div class="o-eyebrow" style="margin:18px 0 10px;">Dates clés de la billetterie</div>
+        <div class="dates-card">
+          <div class="dk-row">
+            <div class="dk-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="dk-txt"><div class="dk-l">Fermeture des ventes en ligne</div><div class="dk-d">Sam 7 Juin · 18h00 (2h avant)</div></div>
+          </div>
+          <div class="dk-row">
+            <div class="dk-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="dk-txt"><div class="dk-l">Émission des billets</div><div class="dk-d">Ven 6 Juin · 20h00 (24h avant)</div></div>
+          </div>
+          <div class="dk-row">
+            <div class="dk-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M21 16v5h-5"/><path d="M3 16v5h5"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/></svg></div>
+            <div class="dk-txt"><div class="dk-l">Cession possible jusqu'au</div><div class="dk-d">Ven 6 Juin · 20h00</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="o-eyebrow" style="margin:18px 0 10px;">Gérer l'événement</div>
+      <div class="act-list">
+        <button class="act-row" id="oevActSales" onclick="nav('osales')">
+          <div class="act-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="act-tx"><div class="act-l" id="oevSalesL">Suivi des ventes</div><div class="act-s" id="oevSalesS">KPI, graphique, répartition</div></div>
+          <div class="act-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </button>
+        <button class="act-row" id="oevActEdit" onclick="startCreate()">
+          <div class="act-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+          <div class="act-tx"><div class="act-l">Modifier l'événement</div><div class="act-s">Description, horaire, lieu, photos</div></div>
+          <div class="act-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </button>
+        <button class="act-row" id="oevActPay" onclick="nav('opayout')">
+          <div class="act-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="act-tx"><div class="act-l">Reversement des recettes</div><div class="act-s" id="oevPayS">Prévu 48h après l'événement</div></div>
+          <div class="act-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </button>
+      </div>
+      <div class="lock-note" id="oevLock">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span id="oevLockTxt">Les prix et catégories sont verrouillés : des billets sont déjà vendus. Tu peux toujours modifier description, horaire, lieu et photos.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OCREATE — WIZARD CRÉATION -->
+  <div class="screen" id="ocreate">
+    <div class="wz-head">
+      <div class="wz-titlerow">
+        <button class="page-back" onclick="exitCreate()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <div class="wz-title">Nouvel événement</div>
+      </div>
+      <div class="wz-steps" id="wzSteps">
+        <div class="wz-st cur" data-st="1"><div class="wz-dot">1</div><div class="wz-stl">Infos</div></div>
+        <div class="wz-line"></div>
+        <div class="wz-st" data-st="2"><div class="wz-dot">2</div><div class="wz-stl">Billets</div></div>
+        <div class="wz-line"></div>
+        <div class="wz-st" data-st="3"><div class="wz-dot">3</div><div class="wz-stl">Dates</div></div>
+        <div class="wz-line"></div>
+        <div class="wz-st" data-st="4"><div class="wz-dot">4</div><div class="wz-stl">Photos</div></div>
+        <div class="wz-line"></div>
+        <div class="wz-st" data-st="5"><div class="wz-dot">5</div><div class="wz-stl">Récap</div></div>
+      </div>
+    </div>
+    <div class="wz-body" id="wzBody">
+
+      <!-- STEP 1 — INFOS -->
+      <div class="wz-step on" data-step="1">
+        <div class="wz-sec-h">Décris ton événement</div>
+        <div class="wz-sec-p">Les infos essentielles que verront les acheteurs.</div>
+        <label class="field-label">Nom de l'événement</label>
+        <input type="text" class="txt-input" id="cName" value="VAUDOU NIGHTS — Édition Spéciale" oninput="syncRecap()">
+        <label class="field-label">Catégorie</label>
+        <div class="cat-pick">
+          <button class="cat-opt on" onclick="pickCat(this)">Musique</button>
+          <button class="cat-opt" onclick="pickCat(this)">Théâtre</button>
+          <button class="cat-opt" onclick="pickCat(this)">Expo</button>
+          <button class="cat-opt" onclick="pickCat(this)">Festival</button>
+          <button class="cat-opt" onclick="pickCat(this)">Danse</button>
+        </div>
+        <label class="field-label">Description</label>
+        <textarea class="txt-area" oninput="syncRecap()">Le Gangbé Brass Band revient pour une nuit exceptionnelle au cœur du patrimoine vodoun. Cuivres, percussions et chants traditionnels dans une mise en scène inédite.</textarea>
+        <div class="wz-grid2">
+          <div><label class="field-label">Date</label><input type="text" class="txt-input" id="cDate" value="07/06/2026" oninput="syncRecap();syncDates()"></div>
+          <div><label class="field-label">Heure</label><input type="text" class="txt-input" id="cTime" value="20:00" oninput="syncRecap();syncDates()"></div>
+        </div>
+        <label class="field-label">Ville</label>
+        <input type="text" class="txt-input" value="Cotonou" oninput="syncRecap()">
+        <label class="field-label">Lieu — nom</label>
+        <input type="text" class="txt-input" id="cVenue" value="Champ de Foire" oninput="syncRecap()">
+        <label class="field-label">Lieu — adresse</label>
+        <input type="text" class="txt-input" value="Bd Saint-Michel, Cotonou" style="margin-bottom:0;">
+      </div>
+
+      <!-- STEP 2 — BILLETTERIE -->
+      <div class="wz-step" data-step="2">
+        <div class="wz-sec-h">Catégories de billets</div>
+        <div class="wz-sec-p">Jusqu'à 5 catégories. La capacité totale est la somme des places.</div>
+        <div id="tkList">
+          <div class="tk-cat">
+            <div class="tk-cat-top">
+              <input class="tk-name-in" value="Standard" placeholder="Nom de la catégorie" oninput="syncRecap()">
+              <button class="tk-del" onclick="delCat(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+            </div>
+            <div class="tk-fields">
+              <div><label class="tk-mini-l">Prix (XOF)</label><input class="tk-mini-in tk-price" inputmode="numeric" value="2500" oninput="recalc()"></div>
+              <div><label class="tk-mini-l">Places</label><input class="tk-mini-in tk-qty" inputmode="numeric" value="380" oninput="recalc()"></div>
+            </div>
+          </div>
+          <div class="tk-cat">
+            <div class="tk-cat-top">
+              <input class="tk-name-in" value="VIP" placeholder="Nom de la catégorie" oninput="syncRecap()">
+              <button class="tk-del" onclick="delCat(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+            </div>
+            <div class="tk-fields">
+              <div><label class="tk-mini-l">Prix (XOF)</label><input class="tk-mini-in tk-price" inputmode="numeric" value="6000" oninput="recalc()"></div>
+              <div><label class="tk-mini-l">Places</label><input class="tk-mini-in tk-qty" inputmode="numeric" value="120" oninput="recalc()"></div>
+            </div>
+          </div>
+        </div>
+        <button class="tk-add" id="tkAdd" onclick="addCat()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Ajouter une catégorie
+        </button>
+        <div class="cap-pill">
+          <span class="cap-l">Capacité totale</span>
+          <span class="cap-v" id="capTotal">500 places</span>
+        </div>
+        <div class="sim-box">
+          <div class="sim-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Simulateur · <span id="simCat">Standard</span></div>
+          <div class="sim-row"><span>Prix du billet</span><span class="sv" id="simPrice">2 500 XOF</span></div>
+          <div class="sim-row"><span>Frais de service Wamiton (10%)</span><span class="sv neg" id="simFee">− 250 XOF</span></div>
+          <div class="sim-row net"><span>Tu reçois par billet</span><span class="sv" id="simNet">2 250 XOF</span></div>
+        </div>
+      </div>
+
+      <!-- STEP 3 — DATES CLÉS -->
+      <div class="wz-step" data-step="3">
+        <div class="wz-sec-h">Dates clés</div>
+        <div class="wz-sec-p">Contrôle la fermeture des ventes, l'émission et la cession des billets.</div>
+        <div class="dk-field">
+          <label class="field-label">Fermeture des ventes en ligne <span class="dk-result" id="dkClose">2h avant</span></label>
+          <div class="range-row">
+            <input type="range" id="rClose" min="0" max="12" step="1" value="2" oninput="syncDates()">
+            <span class="range-val" id="vClose">2 h</span>
+          </div>
+        </div>
+        <div class="dk-field">
+          <label class="field-label">Émission des billets <span class="dk-result" id="dkEmit">24h avant</span></label>
+          <div class="range-row">
+            <input type="range" id="rEmit" min="2" max="72" step="2" value="24" oninput="syncDates()">
+            <span class="range-val" id="vEmit">24 h</span>
+          </div>
+        </div>
+        <div class="alert-box hide" id="dkAlert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Incohérence : l'émission des billets ne peut pas précéder la fermeture des ventes.
+        </div>
+        <div class="o-eyebrow" style="margin:18px 0 10px;">Récapitulatif des dates clés</div>
+        <div class="dates-card">
+          <div class="dk-row">
+            <div class="dk-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="dk-txt"><div class="dk-l">Ventes ferment le</div><div class="dk-d" id="recClose">Sam 7 Juin · 18h00</div></div>
+          </div>
+          <div class="dk-row">
+            <div class="dk-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="dk-txt"><div class="dk-l">Billets émis le</div><div class="dk-d" id="recEmit">Ven 6 Juin · 20h00</div></div>
+          </div>
+          <div class="dk-row">
+            <div class="dk-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="m21 3-7 7"/><path d="M8 3H3v5"/><path d="m3 3 7 7"/></svg></div>
+            <div class="dk-txt"><div class="dk-l">Cession possible jusqu'au</div><div class="dk-d" id="recCede">Ven 6 Juin · 20h00</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 — PHOTOS -->
+      <div class="wz-step" data-step="4">
+        <div class="wz-sec-h">Visuels</div>
+        <div class="wz-sec-p">JPEG ou PNG, 5 Mo max chacune.</div>
+        <label class="field-label">Image de couverture <span class="req-tag">Obligatoire</span></label>
+        <image-slot id="cCover" class="cover-slot" shape="rect" placeholder="Couverture de l'événement"></image-slot>
+        <label class="field-label" style="margin-top:16px;">Galerie <span class="opt" style="text-transform:none;letter-spacing:0;">(jusqu'à 4 photos)</span></label>
+        <div class="photo-grid">
+          <image-slot id="cP1" shape="rect" placeholder="+"></image-slot>
+          <image-slot id="cP2" shape="rect" placeholder="+"></image-slot>
+          <image-slot id="cP3" shape="rect" placeholder="+"></image-slot>
+          <image-slot id="cP4" shape="rect" placeholder="+"></image-slot>
+        </div>
+      </div>
+
+      <!-- STEP 5 — RÉCAP -->
+      <div class="wz-step" data-step="5">
+        <div class="wz-sec-h">Vérifie et publie</div>
+        <div class="wz-sec-p">Un dernier coup d'œil avant de soumettre à validation.</div>
+        <div class="recap-card">
+          <div class="recap-hd">Événement <span class="edit" onclick="goStep(1)">Modifier</span></div>
+          <div class="recap-row"><span class="recap-k">Nom</span><span class="recap-v" id="rcName">VAUDOU NIGHTS — Édition Spéciale</span></div>
+          <div class="recap-row"><span class="recap-k">Catégorie</span><span class="recap-v" id="rcCat">Musique</span></div>
+          <div class="recap-row"><span class="recap-k">Quand</span><span class="recap-v" id="rcWhen">07/06/2026 · 20:00</span></div>
+          <div class="recap-row"><span class="recap-k">Lieu</span><span class="recap-v" id="rcVenue">Champ de Foire · Cotonou</span></div>
+        </div>
+        <div class="recap-card">
+          <div class="recap-hd">Billetterie <span class="edit" onclick="goStep(2)">Modifier</span></div>
+          <div id="rcTickets"></div>
+          <div class="recap-row"><span class="recap-k">Capacité totale</span><span class="recap-v" id="rcCap">500 places</span></div>
+        </div>
+        <div class="val-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Ton événement passe en validation chez Wamiton. Tu seras notifié à sa publication.
+        </div>
+      </div>
+
+    </div>
+    <div class="wz-foot" id="wzFoot">
+      <button class="btn-back" id="wzBack" onclick="prevStep()" style="visibility:hidden;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="btn-p" id="wzNext" onclick="nextStep()">Continuer</button>
+    </div>
+  </div>
+
+  <!-- OSUBMIT — SOUMIS À VALIDATION -->
+  <div class="screen" id="osubmit">
+    <div class="conf-bg" style="background:radial-gradient(ellipse 70% 50% at 50% 55%,rgba(217,162,60,.16) 0%,transparent 70%);"></div>
+    <div class="os-inner">
+      <div class="os-ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <span class="conf-chip" style="background:rgba(217,162,60,.14);color:#D9A23C;border-color:rgba(217,162,60,.3);">En attente de validation</span>
+      <div class="os-title">Envoyé pour<br><em>validation</em></div>
+      <p class="os-sub">L'équipe Wamiton vérifie ton événement. Tu seras notifié dès sa publication.</p>
+      <div class="os-tl">
+        <div class="os-tl-row on"><div class="os-tl-dot"></div><div><div class="os-tl-t">Événement soumis</div><div class="os-tl-s">À l'instant</div></div></div>
+        <div class="os-tl-row"><div class="os-tl-dot"></div><div><div class="os-tl-t">Vérification Wamiton</div><div class="os-tl-s">Sous 24-48h</div></div></div>
+        <div class="os-tl-row"><div class="os-tl-dot"></div><div><div class="os-tl-t">Publié & mis en vente</div><div class="os-tl-s">Notification + visible par tous</div></div></div>
+      </div>
+      <button class="btn-p" onclick="nav('odash')" style="margin-bottom:10px;">Retour au tableau de bord</button>
+      <button class="btn-s" onclick="nav('odash')">Voir mes événements</button>
+    </div>
+  </div>
+
+  <!-- OSALES — SUIVI DES VENTES -->
+  <div class="screen o-screen" id="osales">
+    <div class="o-top">
+      <div class="o-eyebrow">Suivi des ventes <span class="oconsole">Console</span></div>
+      <div class="o-h1">Ventes</div>
+    </div>
+    <div class="o-scroll" style="padding-top:6px;">
+      <div class="ev-select" onclick="nav('odash')">
+        <div class="es-tx"><div class="es-l">Événement</div><div class="es-v">VAUDOU NIGHTS — Édition Spéciale</div></div>
+        <div class="es-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="live-tag"><span class="ld"></span>En direct · actualisé il y a 2 min</div>
+      <div class="kpi3">
+        <div class="k3"><div class="k3-n">342</div><div class="k3-l">Billets vendus</div></div>
+        <div class="k3"><div class="k3-n acc">1,11 M</div><div class="k3-l">Recette XOF</div></div>
+        <div class="k3"><div class="k3-n">68 %</div><div class="k3-l">Remplissage</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-t">Ventes par jour</div><div class="panel-s">7 derniers jours</div></div>
+        <div class="chart">
+          <div class="bar-wrap"><div class="bar" style="height:24%;"></div><div class="bar-x">Lun</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:42%;"></div><div class="bar-x">Mar</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:36%;"></div><div class="bar-x">Mer</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:58%;"></div><div class="bar-x">Jeu</div></div>
+          <div class="bar-wrap"><div class="bar peak" style="height:100%;"></div><div class="bar-x">Ven</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:74%;"></div><div class="bar-x">Sam</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:48%;"></div><div class="bar-x">Dim</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-t">Par catégorie</div><div class="panel-s">Vendus / quota</div></div>
+        <div class="cat-stat">
+          <div class="cat-stat-top"><span class="cs-name">Standard</span><span class="cs-num"><b>268</b> / 380 · 670 000 XOF</span></div>
+          <div class="cs-bar"><i style="width:70%;background:var(--oc);"></i></div>
+        </div>
+        <div class="cat-stat">
+          <div class="cat-stat-top"><span class="cs-name">VIP</span><span class="cs-num"><b>74</b> / 120 · 444 000 XOF</span></div>
+          <div class="cs-bar"><i style="width:62%;background:#E0974A;"></i></div>
+        </div>
+      </div>
+      <div class="lock-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Alerte automatique à 80% de remplissage (400 billets). Plus que 58 billets.
+      </div>
+    </div>
+    <div class="bnav bnav-org">
+      <button class="bn-item" onclick="nav('odash')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div><span class="bn-lbl">Bord</span></button>
+      <button class="bn-item" onclick="startCreate()"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><span class="bn-lbl">Créer</span></button>
+      <button class="bn-item on" onclick="nav('osales')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Ventes</span></button>
+      <button class="bn-item" onclick="nav('oprofile')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="bn-lbl">Profil</span></button>
+    </div>
+  </div>
+
+  <!-- OPAYOUT — REVERSEMENTS -->
+  <div class="screen o-screen" id="opayout">
+    <div class="oev-head" style="padding-bottom:8px;">
+      <button class="oev-back" onclick="nav('oprofile')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Profil
+      </button>
+      <div class="o-h1" style="font-size:24px;">Reversements</div>
+    </div>
+    <div class="o-scroll" style="padding-top:10px;">
+      <div class="balance">
+        <div class="bal-l">Prochain reversement</div>
+        <div class="bal-v">1 002 600 <span style="font-family:var(--fm);font-size:15px;color:rgba(245,236,215,.5);">XOF</span></div>
+        <div class="bal-s">VAUDOU NIGHTS · prévu le 9 Juin (48h après l'événement)</div>
+        <div class="bal-method"><span class="mm">MTN</span>MTN MoMo · +229 97 12 34 56</div>
+      </div>
+      <div class="o-eyebrow" style="margin:6px 0 10px;">Historique</div>
+      <div class="pay-row">
+        <div class="pr-ic wait"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="pr-tx"><div class="pr-ev">VAUDOU NIGHTS</div><div class="pr-d">Prévu 9 Juin · MTN MoMo</div></div>
+        <div class="pr-amt"><div class="pr-a">1 002 600</div><div class="pr-st wait">En attente</div></div>
+      </div>
+      <div class="pay-row">
+        <div class="pr-ic ok"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="pr-tx"><div class="pr-ev">AfroFusion — Nuit de la Musique</div><div class="pr-d">19 Mai · MTN MoMo</div></div>
+        <div class="pr-amt"><div class="pr-a">2 070 000</div><div class="pr-st ok">Reversé</div></div>
+      </div>
+      <div class="pay-row">
+        <div class="pr-ic ok"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="pr-tx"><div class="pr-ev">Showcase Slam #3</div><div class="pr-d">2 Mai · MTN MoMo</div></div>
+        <div class="pr-amt"><div class="pr-a">486 000</div><div class="pr-st ok">Reversé</div></div>
+      </div>
+      <div class="lock-note" style="margin-top:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Montants nets, frais de service Wamiton (10%) déjà déduits.
+      </div>
+    </div>
+  </div>
+
+  <!-- OPROFILE — PROFIL ORGA -->
+  <div class="screen o-screen" id="oprofile">
+    <div class="prof2-scroll">
+      <div class="prof2-head">
+        <div class="prof2-av">GP<span class="prof2-verif"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A1208" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="prof2-name">Gangbé Productions</div>
+        <div class="prof2-phone">+229 97 12 34 56</div>
+        <div class="prof2-member">Organisateur vérifié</div>
+      </div>
+      <div class="prof2-stats">
+        <div class="ps-cell"><div class="ps-num">1</div><div class="ps-lbl">En vente</div></div>
+        <div class="ps-div"></div>
+        <div class="ps-cell"><div class="ps-num">4</div><div class="ps-lbl">Événements</div></div>
+        <div class="ps-div"></div>
+        <div class="ps-cell"><div class="ps-num">822</div><div class="ps-lbl">Vendus</div></div>
+      </div>
+      <div class="prof2-group-lbl">Gestion</div>
+      <div class="prof2-card">
+        <button class="prof2-row" onclick="nav('odash')">
+          <span class="p2-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>
+          <span class="p2-txt"><span class="p2-label">Mes événements</span><span class="p2-sub">1 publié · 1 en attente · 1 brouillon</span></span>
+          <span class="p2-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </button>
+        <button class="prof2-row" onclick="nav('opayout')">
+          <span class="p2-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+          <span class="p2-txt"><span class="p2-label">Reversements</span><span class="p2-sub">MTN MoMo · prochain 9 Juin</span></span>
+          <span class="p2-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </button>
+        <button class="prof2-row">
+          <span class="p2-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg></span>
+          <span class="p2-txt"><span class="p2-label">Coordonnées de la structure</span><span class="p2-sub">Nom, contact, type</span></span>
+          <span class="p2-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </button>
+      </div>
+      <div class="prof2-group-lbl">Espace</div>
+      <button class="opr-switch" onclick="nav('s7')">
+        <span class="sw-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg></span>
+        <span class="sw-tx"><span class="sw-l">Passer en mode participant</span><span class="sw-s">Découvrir et acheter des billets</span></span>
+        <span class="act-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+      <button class="prof2-logout" onclick="nav('srole')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Se déconnecter
+      </button>
+    </div>
+    <div class="bnav bnav-org">
+      <button class="bn-item" onclick="nav('odash')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div><span class="bn-lbl">Bord</span></button>
+      <button class="bn-item" onclick="startCreate()"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><span class="bn-lbl">Créer</span></button>
+      <button class="bn-item" onclick="nav('osales')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Ventes</span></button>
+      <button class="bn-item on" onclick="nav('oprofile')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="bn-lbl">Profil</span></button>
+    </div>
+  </div>
+
 </div><!-- #device -->
 
 <script>
-const ALL=['s1','srole','s2','s3','s4','s5','s6','sforgot','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17'];
+const ALL=['s1','srole','s2','s3','s4','s5','s6','sforgot','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17','oonb','odash','oevent','ocreate','osubmit','osales','opayout','oprofile'];
 let prevScreen='s1';
 
 function nav(id){
@@ -1218,6 +2094,13 @@ function history_back(){nav(prevScreen);}
 
 /* SPLASH */
 (function(){
+  // Deep-link (?s=sX) — utilisé par le board maquettes : affiche un écran figé
+  var deep=(location.search.match(/[?&]s=([a-z0-9]+)/i)||[])[1];
+  if(deep && document.getElementById(deep)){
+    document.documentElement.classList.add('static-shot');
+    nav(deep);
+    return;
+  }
   const bar=document.getElementById('splashBar');
   const DURATION=2400;
   const start=performance.now();
@@ -1345,6 +2228,117 @@ function sendReset(){
     setTimeout(function(){tc.textContent=gen();tc.style.opacity='1';},280);
   },10000);
 })();
+
+/* ============================================================
+   ESPACE ORGANISATEUR — logique
+============================================================ */
+function pickOne(el){el.parentElement.querySelectorAll('.cat-opt').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
+function pickCat(el){el.parentElement.querySelectorAll('.cat-opt').forEach(x=>x.classList.remove('on'));el.classList.add('on');syncRecap();}
+
+let wzStep=1;
+function startCreate(){wzStep=1;setStep(1);recalc();syncDates();syncRecap();nav('ocreate');}
+function exitCreate(){nav('odash');}
+
+/* Détail événement — badge + contenu selon le statut */
+const OEV={
+  vaudou:{badge:'st-pub',badgeTxt:'Publié · en vente',name:'VAUDOU NIGHTS — Édition Spéciale',meta:'<b>SAM 7 JUIN · 20H00</b><br>Champ de Foire · Cotonou',state:'pub',sold:'342',cap:'500',rev:'1,11 M',fill:68,left:'158 places restantes'},
+  jazz:{badge:'st-wait',badgeTxt:'En attente de validation',name:'Jazz au Bénin — Orchestre National',meta:'<b>VEN 13 JUIN · 19H30</b><br>Palais des Congrès · Cotonou',state:'wait'},
+  afro:{badge:'st-past',badgeTxt:'Passé · terminé',name:'AfroFusion — Nuit de la Musique',meta:'<b>SAM 17 MAI · 21H00</b><br>Fondation Zinsou · Cotonou',state:'past',sold:'480',cap:'480',rev:'2,30 M',fill:100,left:'Complet'}
+};
+function openEvent(key){
+  const e=OEV[key];if(!e)return;
+  const $=id=>document.getElementById(id);
+  const pub=e.state==='pub',wait=e.state==='wait',past=e.state==='past';
+  $('oevBadge').className='st-badge '+e.badge;
+  $('oevBadge').textContent=e.badgeTxt;
+  $('oevName').textContent=e.name;
+  $('oevMeta').innerHTML=e.meta;
+  $('oevPending').style.display=wait?'flex':'none';
+  $('oevKpi').style.display=wait?'none':'grid';
+  if(!wait){
+    $('oevSold').textContent=e.sold;$('oevCap').textContent=e.cap;
+    $('oevRev').textContent=e.rev;$('oevFill').textContent=e.fill;
+    $('oevFillBar').style.width=e.fill+'%';$('oevLeft').textContent=e.left;
+  }
+  $('oevDatesWrap').style.display=past?'none':'block';
+  $('oevActSales').style.display=wait?'none':'flex';
+  $('oevSalesL').textContent=past?'Bilan des ventes':'Suivi des ventes';
+  $('oevSalesS').textContent=past?"Résultats finaux de l'événement":'KPI, graphique, répartition';
+  $('oevActEdit').style.display=past?'none':'flex';
+  $('oevActPay').style.display=wait?'none':'flex';
+  $('oevPayS').textContent=past?'Reversé le 19 Mai · MTN MoMo':"Prévu 48h après l'événement";
+  if(past){$('oevLock').style.display='flex';$('oevLockTxt').textContent='Événement archivé. Billets utilisés et recettes reversées.';}
+  else if(wait){$('oevLock').style.display='none';}
+  else{$('oevLock').style.display='flex';$('oevLockTxt').textContent='Les prix et catégories sont verrouillés : des billets sont déjà vendus. Tu peux toujours modifier description, horaire, lieu et photos.';}
+  nav('oevent');
+}
+window.openEvent=openEvent;
+function setStep(n){
+  wzStep=n;
+  document.querySelectorAll('#ocreate .wz-step').forEach(s=>s.classList.toggle('on',+s.dataset.step===n));
+  document.querySelectorAll('#wzSteps .wz-st').forEach(s=>{const i=+s.dataset.st;s.classList.toggle('done',i<n);s.classList.toggle('cur',i===n);});
+  document.querySelectorAll('#wzSteps .wz-line').forEach((l,idx)=>l.classList.toggle('done',idx<n-1));
+  const back=document.getElementById('wzBack');if(back)back.style.visibility=n>1?'visible':'hidden';
+  const next=document.getElementById('wzNext');if(next)next.textContent=n>=5?'Soumettre à validation':'Continuer';
+  if(n===5)syncRecap();
+  const body=document.getElementById('wzBody');if(body)body.scrollTop=0;
+}
+function goStep(n){setStep(n);}
+function nextStep(){if(wzStep>=5){nav('osubmit');return;}setStep(wzStep+1);}
+function prevStep(){if(wzStep>1)setStep(wzStep-1);}
+
+const TK_TPL=`<div class="tk-cat"><div class="tk-cat-top"><input class="tk-name-in" placeholder="Nom de la catégorie" oninput="syncRecap()"><button class="tk-del" onclick="delCat(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div><div class="tk-fields"><div><label class="tk-mini-l">Prix (XOF)</label><input class="tk-mini-in tk-price" inputmode="numeric" value="0" oninput="recalc()"></div><div><label class="tk-mini-l">Places</label><input class="tk-mini-in tk-qty" inputmode="numeric" value="50" oninput="recalc()"></div></div></div>`;
+function addCat(){const list=document.getElementById('tkList');if(list.children.length>=5)return;const w=document.createElement('div');w.innerHTML=TK_TPL;list.appendChild(w.firstChild);recalc();}
+function delCat(btn){const list=document.getElementById('tkList');if(list.children.length<=1)return;btn.closest('.tk-cat').remove();recalc();}
+function recalc(){
+  let cap=0;
+  document.querySelectorAll('#tkList .tk-qty').forEach(q=>cap+=parseInt(q.value)||0);
+  const capTxt=cap.toLocaleString('fr-FR')+' places';
+  const ct=document.getElementById('capTotal');if(ct)ct.textContent=capTxt;
+  const rcc=document.getElementById('rcCap');if(rcc)rcc.textContent=capTxt;
+  const first=document.querySelector('#tkList .tk-cat');
+  if(first){
+    const price=parseInt(first.querySelector('.tk-price').value)||0;
+    const nm=first.querySelector('.tk-name-in').value||'Catégorie';
+    const fee=Math.round(price*0.10),net=price-fee;
+    document.getElementById('simCat').textContent=nm;
+    document.getElementById('simPrice').textContent=price===0?'Gratuit':fmt(price);
+    document.getElementById('simFee').textContent=price===0?'− 0 XOF':'− '+fmt(fee);
+    document.getElementById('simNet').textContent=fmt(net);
+  }
+  const add=document.getElementById('tkAdd');if(add)add.classList.toggle('off',document.querySelectorAll('#tkList .tk-cat').length>=5);
+  syncRecap();
+}
+function syncRecap(){
+  const g=id=>document.getElementById(id);
+  if(g('rcName')&&g('cName'))g('rcName').textContent=g('cName').value||'—';
+  const catOn=document.querySelector('#ocreate .wz-step[data-step="1"] .cat-pick .cat-opt.on');
+  if(g('rcCat'))g('rcCat').textContent=catOn?catOn.textContent:'—';
+  if(g('rcWhen')&&g('cDate')&&g('cTime'))g('rcWhen').textContent=g('cDate').value+' · '+g('cTime').value;
+  if(g('rcVenue')&&g('cVenue'))g('rcVenue').textContent=(g('cVenue').value||'—')+' · Cotonou';
+  const rt=g('rcTickets');
+  if(rt){let html='';document.querySelectorAll('#tkList .tk-cat').forEach(c=>{const nm=c.querySelector('.tk-name-in').value||'Catégorie';const pr=parseInt(c.querySelector('.tk-price').value)||0;const qt=parseInt(c.querySelector('.tk-qty').value)||0;html+=`<div class="recap-row"><span class="recap-k">${nm}</span><span class="recap-v">${pr===0?'Gratuit':fmt(pr)} · ${qt} pl.</span></div>`;});rt.innerHTML=html;}
+}
+function syncDates(){
+  const rc=document.getElementById('rClose'),re=document.getElementById('rEmit');
+  if(!rc||!re)return;
+  const close=+rc.value,emit=+re.value;
+  document.getElementById('vClose').textContent=close+' h';
+  document.getElementById('vEmit').textContent=emit+' h';
+  document.getElementById('dkClose').textContent=close+'h avant';
+  document.getElementById('dkEmit').textContent=emit+'h avant';
+  const start=new Date(2026,5,7,20,0);
+  const days=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const mon=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+  const f=d=>`${days[d.getDay()]} ${d.getDate()} ${mon[d.getMonth()]} · ${String(d.getHours()).padStart(2,'0')}h${String(d.getMinutes()).padStart(2,'0')}`;
+  const cd=new Date(start-close*3600000),ed=new Date(start-emit*3600000);
+  document.getElementById('recClose').textContent=f(cd);
+  document.getElementById('recEmit').textContent=f(ed);
+  document.getElementById('recCede').textContent=f(ed);
+  document.getElementById('dkAlert').classList.toggle('hide',!(emit<close));
+}
+/* (format wizard uniquement) */
 </script>
+
 </body>
 </html>
