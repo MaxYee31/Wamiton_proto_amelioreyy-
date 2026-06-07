@@ -102,6 +102,10 @@ html.static-shot .screen.active{animation:none;}
 .rc-desc{font-size:12.5px;color:rgba(245,236,215,.5);line-height:1.5;}
 .rc-arr{color:rgba(245,236,215,.25);flex-shrink:0;}
 .role-card:hover .rc-arr{color:var(--oc);}
+.rc-tag{font-family:var(--fm);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#5BA873;background:rgba(91,168,115,.14);border:1px solid rgba(91,168,115,.3);padding:2px 6px;border-radius:99px;font-weight:400;}
+.role-card-c .rc-ic{background:rgba(91,168,115,.12);border-color:rgba(91,168,115,.22);color:#5BA873;}
+.role-card-c:hover{border-color:rgba(91,168,115,.4);background:rgba(91,168,115,.06);}
+.role-card-c:hover .rc-arr{color:#5BA873;}
 
 /* ============================================================
    S2 — ONBOARDING
@@ -798,7 +802,7 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
    Accent secondaire #B5502A + surfaces plus profondes.
    100% brand book : cocoa / terracotta / cream.
 ============================================================ */
-#oonb,#odash,#oevent,#ocreate,#osubmit,#osales,#opayout,#oprofile{
+#oonb,#ologin,#otier,#osignup,#odash,#oevent,#ocreate,#osubmit,#osales,#opayout,#oprofile,#oagents{
   --oc:#B5502A;          /* accent → terracotta */
   --onac:var(--cr);      /* texte sur accent → crème (pairing brand) */
   --co:#14100a;          /* surface console, plus profonde que cocoa */
@@ -826,6 +830,9 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
 .tk-cat:focus-within{border-color:rgba(181,80,42,.4);}
 /* éléments partagés : terracotta uniquement dans l'espace orga */
 #odash .avatar{background:rgba(181,80,42,.15);border-color:rgba(181,80,42,.35);color:var(--oc);}
+.o-home{width:34px;height:34px;border-radius:50%;background:rgba(245,236,215,.06);border:1.5px solid rgba(245,236,215,.14);display:flex;align-items:center;justify-content:center;color:rgba(245,236,215,.7);cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;transition:border-color .18s,color .18s;}
+.o-home:active{transform:scale(.94);}
+.o-home:hover{border-color:rgba(181,80,42,.5);color:var(--oc);}
 #oprofile .prof2-av{background:linear-gradient(150deg,rgba(181,80,42,.32),rgba(181,80,42,.1));border-color:rgba(181,80,42,.42);color:var(--oc);}
 #oprofile .prof2-verif{background:var(--oc);}
 #oprofile .prof2-member{color:var(--oc);background:rgba(181,80,42,.12);border-color:rgba(181,80,42,.28);}
@@ -833,6 +840,239 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
 /* marqueur console persistant */
 .oconsole{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--oc);background:rgba(181,80,42,.16);border:1px solid rgba(181,80,42,.34);padding:4px 9px;border-radius:99px;vertical-align:middle;margin-left:9px;}
 .oconsole::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--oc);}
+
+/* ============================================================
+   SURFACE C — CONTRÔLE DES ENTRÉES (Check-in) — thème « Terrain »
+   Accent vert validation (GO) sur la surface la plus profonde.
+   Brand-safe : le vert #5BA873 sert déjà de couleur de validation.
+============================================================ */
+#conb,#cauth,#csync,#cscan,#cstats,#cteam{
+  --oc:#5BA873;           /* accent → vert terrain (GO) */
+  --onac:#0b0a06;         /* texte sur accent → presque noir */
+  --co:#0d0b06;           /* surface terrain, la plus profonde */
+  --co2:#16130c;          /* carte surélevée */
+  --stage:#0a0805;        /* viseur caméra */
+  --rd:#D2453A;           /* refus / stop */
+}
+.c-screen{background:var(--co);flex-direction:column;}
+.cterrain{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--oc);background:rgba(91,168,115,.16);border:1px solid rgba(91,168,115,.3);padding:3px 9px;border-radius:99px;white-space:nowrap;}
+.cterrain::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--oc);box-shadow:0 0 0 3px rgba(91,168,115,.18);}
+@media(prefers-reduced-motion:no-preference){.cterrain::before{animation:dotPulse 2s ease-in-out infinite;}}
+.bnav-c{background:rgba(13,11,6,.96);}
+.bnav-c .bn-item.on .bn-ico,.bnav-c .bn-item.on .bn-lbl{color:var(--oc);}
+
+/* CONB — accès agent */
+#conb .oo-perk-ic{background:rgba(91,168,115,.12);border-color:rgba(91,168,115,.22);color:var(--oc);}
+#conb{background:var(--co);padding:54px 24px max(28px,env(safe-area-inset-bottom));overflow-y:auto;}
+.conb-badge{display:flex;justify-content:center;margin-bottom:18px;}
+.conb-glyph{width:70px;height:70px;border-radius:20px;background:rgba(91,168,115,.12);border:1px solid rgba(91,168,115,.25);display:flex;align-items:center;justify-content:center;color:var(--oc);}
+.cev-pick{display:flex;flex-direction:column;gap:10px;margin-bottom:6px;}
+.cev-opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;background:var(--co2);border:1.5px solid rgba(245,236,215,.07);border-radius:15px;padding:14px 15px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .18s,background .18s;}
+.cev-opt.sel{border-color:rgba(91,168,115,.5);background:rgba(91,168,115,.07);}
+.cev-radio{width:20px;height:20px;border-radius:50%;border:2px solid rgba(245,236,215,.2);flex-shrink:0;position:relative;transition:border-color .18s;}
+.cev-opt.sel .cev-radio{border-color:var(--oc);}
+.cev-opt.sel .cev-radio::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--oc);}
+.cev-tx{flex:1;min-width:0;}
+.cev-name{font-family:var(--fd);font-size:14px;color:var(--cr);line-height:1.1;margin-bottom:3px;}
+.cev-meta{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.45);}
+
+/* CSYNC — synchronisation hors-ligne */
+#csync{background:var(--co);flex-direction:column;}
+.sync-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;}
+.sync-orb{position:relative;width:188px;height:188px;display:flex;align-items:center;justify-content:center;margin-bottom:30px;}
+.sync-ring-svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);}
+.sync-ring-bg{fill:none;stroke:rgba(245,236,215,.08);stroke-width:6;}
+.sync-ring-fg{fill:none;stroke:var(--oc);stroke-width:6;stroke-linecap:round;stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset .15s linear;}
+.sync-core{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.sync-core .sc-ic{color:var(--oc);}
+.sync-pct{font-family:var(--fd);font-size:30px;color:var(--cr);line-height:1;}
+.sync-state{font-family:var(--fm);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,236,215,.45);}
+.sync-h{font-family:var(--fd);font-size:25px;line-height:1.04;color:var(--cr);margin-bottom:10px;}
+.sync-h em{font-family:var(--fi);font-style:italic;font-weight:400;color:var(--oc);}
+.sync-p{font-size:13.5px;color:rgba(245,236,215,.5);line-height:1.6;max-width:32ch;margin-bottom:24px;}
+.sync-meta{width:100%;max-width:340px;background:var(--co2);border:1px solid rgba(245,236,215,.07);border-radius:14px;padding:4px 16px;margin-bottom:22px;}
+.sync-mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(245,236,215,.06);}
+.sync-mrow:last-child{border-bottom:none;}
+.sync-ml{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,236,215,.42);}
+.sync-mv{font-family:var(--fd);font-size:13px;color:var(--cr);}
+.sync-mv.ok{color:var(--oc);}
+
+/* CSCAN — scanner */
+#cscan{background:var(--stage);flex-direction:column;position:relative;padding-bottom:62px;}
+.scan-top{position:absolute;top:0;left:0;right:0;z-index:6;padding:50px 18px 14px;background:linear-gradient(180deg,rgba(10,8,5,.92),rgba(10,8,5,.55) 70%,transparent);}
+.scan-evrow{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.scan-evname{font-family:var(--fd);font-size:15px;color:var(--cr);line-height:1.05;}
+.scan-evsub{font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;color:rgba(245,236,215,.5);margin-top:3px;}
+.scan-quit{width:36px;height:36px;border-radius:50%;background:rgba(245,236,215,.08);border:1px solid rgba(245,236,215,.12);display:flex;align-items:center;justify-content:center;color:rgba(245,236,215,.7);cursor:pointer;flex-shrink:0;}
+.sync-pill{display:inline-flex;align-items:center;gap:7px;margin-top:13px;font-family:var(--fm);font-size:9.5px;letter-spacing:.04em;color:var(--oc);background:rgba(91,168,115,.14);border:1px solid rgba(91,168,115,.28);padding:6px 11px;border-radius:99px;cursor:pointer;white-space:nowrap;max-width:100%;}
+.sync-pill .sp-dot{width:6px;height:6px;border-radius:50%;background:var(--oc);}
+.sync-pill.warn{color:#E8B04E;background:rgba(217,162,60,.13);border-color:rgba(217,162,60,.3);}
+.sync-pill.warn .sp-dot{background:#E8B04E;}
+.scan-stage{flex:1;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 60% at 50% 42%,#13100a 0%,#0a0805 78%);overflow:hidden;}
+.scan-stage::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(245,236,215,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,236,215,.03) 1px,transparent 1px);background-size:34px 34px;mask:radial-gradient(circle at 50% 42%,#000 30%,transparent 72%);-webkit-mask:radial-gradient(circle at 50% 42%,#000 30%,transparent 72%);}
+.scan-frame{position:relative;width:230px;height:230px;}
+.scan-corner{position:absolute;width:38px;height:38px;border:3px solid var(--oc);}
+.scan-corner.tl{top:0;left:0;border-right:none;border-bottom:none;border-radius:14px 0 0 0;}
+.scan-corner.tr{top:0;right:0;border-left:none;border-bottom:none;border-radius:0 14px 0 0;}
+.scan-corner.bl{bottom:0;left:0;border-right:none;border-top:none;border-radius:0 0 0 14px;}
+.scan-corner.br{bottom:0;right:0;border-left:none;border-top:none;border-radius:0 0 14px 0;}
+.scan-laser{position:absolute;left:8px;right:8px;height:2px;top:8px;background:linear-gradient(90deg,transparent,var(--oc),transparent);box-shadow:0 0 12px 1px rgba(91,168,115,.7);border-radius:2px;}
+@media(prefers-reduced-motion:no-preference){#cscan[data-deck-active] .scan-laser,.screen.active .scan-laser{animation:laserScan 2.4s ease-in-out infinite;}}
+@keyframes laserScan{0%{top:8px;}50%{top:218px;}100%{top:8px;}}
+.scan-glyph{position:absolute;color:rgba(245,236,215,.13);}
+.scan-hint{position:absolute;bottom:118px;left:0;right:0;text-align:center;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,236,215,.4);}
+.scan-bottom{flex-shrink:0;z-index:6;padding:16px 18px 14px;background:linear-gradient(0deg,rgba(10,8,5,.98),rgba(10,8,5,.86));border-top:1px solid rgba(245,236,215,.05);}
+.scan-count{display:flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fm);font-size:11px;letter-spacing:.08em;color:rgba(245,236,215,.6);margin-bottom:14px;}
+.scan-count b{font-family:var(--fd);color:var(--cr);font-size:14px;}
+.sim-label{text-align:center;font-family:var(--fm);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,236,215,.3);margin-bottom:9px;}
+.sim-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.sim-btn{font-family:var(--fm);font-size:10.5px;letter-spacing:.04em;padding:11px 6px;border-radius:11px;border:1px solid;cursor:pointer;-webkit-tap-highlight-color:transparent;background:rgba(245,236,215,.04);transition:transform .1s;}
+.sim-btn:active{transform:scale(.96);}
+.sim-btn.ok{color:var(--oc);border-color:rgba(91,168,115,.4);}
+.sim-btn.used,.sim-btn.bad{color:#E88;border-color:rgba(210,69,58,.42);}
+
+/* Résultat de scan (plein écran, par-dessus le viseur) */
+.scan-result{position:absolute;inset:0;z-index:40;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;}
+.scan-result.show{display:flex;animation:srPop .26s cubic-bezier(.2,.8,.3,1.2);}
+@keyframes srPop{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+.scan-result.valid{background:radial-gradient(ellipse 90% 70% at 50% 38%,#1d3b27 0%,#0c1a11 80%);}
+.scan-result.refus{background:radial-gradient(ellipse 90% 70% at 50% 38%,#3b1d1a 0%,#1a0d0b 80%);}
+.sr-mark{width:108px;height:108px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+.scan-result.valid .sr-mark{background:rgba(91,168,115,.16);border:2px solid var(--oc);color:var(--oc);box-shadow:0 0 0 14px rgba(91,168,115,.07);}
+.scan-result.refus .sr-mark{background:rgba(210,69,58,.16);border:2px solid var(--rd);color:#ED7A70;box-shadow:0 0 0 14px rgba(210,69,58,.07);}
+.sr-status{font-family:var(--fd);font-size:27px;line-height:1;margin-bottom:6px;}
+.scan-result.valid .sr-status{color:var(--oc);}
+.scan-result.refus .sr-status{color:#ED7A70;}
+.sr-reason{font-family:var(--fm);font-size:11px;letter-spacing:.06em;color:rgba(245,236,215,.55);margin-bottom:24px;}
+.sr-card{width:100%;max-width:330px;background:rgba(245,236,215,.05);border:1px solid rgba(245,236,215,.12);border-radius:16px;padding:6px 18px;margin-bottom:26px;}
+.sr-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid rgba(245,236,215,.08);}
+.sr-row:last-child{border-bottom:none;}
+.sr-k{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,236,215,.45);}
+.sr-v{font-family:var(--fd);font-size:14px;color:var(--cr);text-align:right;}
+.sr-v.big{font-size:17px;}
+.sr-next{width:100%;max-width:330px;display:flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fd);font-size:14px;padding:16px;border-radius:14px;border:none;cursor:pointer;background:var(--cr);color:#0b0a06;-webkit-tap-highlight-color:transparent;}
+.scan-result.show ~ .bnav{display:none;}
+
+/* CTEAM — agents */
+.cteam-counter{background:linear-gradient(160deg,rgba(91,168,115,.16),rgba(91,168,115,.04));border:1px solid rgba(91,168,115,.25);border-radius:16px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:16px;}
+.cc-num{font-family:var(--fd);font-size:34px;color:var(--cr);line-height:.9;}
+.cc-num .u{font-family:var(--fm);font-size:13px;color:rgba(245,236,215,.45);}
+.cc-tx .cc-l{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,236,215,.5);margin-bottom:5px;}
+.cc-tx .cc-rate{font-size:12.5px;color:var(--oc);font-weight:600;}
+.agent-row{display:flex;align-items:center;gap:13px;background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:14px;padding:13px 15px;margin-bottom:10px;}
+.ag-av{width:42px;height:42px;border-radius:12px;background:rgba(91,168,115,.14);border:1px solid rgba(91,168,115,.26);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;color:var(--oc);flex-shrink:0;}
+.ag-tx{flex:1;min-width:0;}
+.ag-name{font-family:var(--fd);font-size:14px;color:var(--cr);line-height:1.1;margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+.ag-meta{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.45);}
+.ag-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.ag-dot.live{background:var(--oc);box-shadow:0 0 0 3px rgba(91,168,115,.18);}
+.ag-dot.off{background:rgba(245,236,215,.22);}
+.ag-scans{font-family:var(--fd);font-size:15px;color:var(--cr);text-align:right;line-height:1;}
+.ag-scans .u{font-family:var(--fm);font-size:9px;letter-spacing:.08em;color:rgba(245,236,215,.4);display:block;margin-top:4px;}
+.ag-add{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:rgba(91,168,115,.08);border:1.5px dashed rgba(91,168,115,.35);border-radius:14px;padding:15px;font-family:var(--fm);font-size:11px;letter-spacing:.06em;color:var(--oc);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:4px;}
+
+/* CSTATS — historique de scans */
+.scan-log{display:flex;flex-direction:column;}
+.log-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(245,236,215,.06);}
+.log-row:last-child{border-bottom:none;}
+.log-ic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.log-ic.ok{background:rgba(91,168,115,.14);color:var(--oc);}
+.log-ic.no{background:rgba(210,69,58,.14);color:#ED7A70;}
+.log-tx{flex:1;min-width:0;}
+.log-name{font-family:var(--fs);font-weight:600;font-size:13px;color:var(--cr);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.log-sub{font-family:var(--fm);font-size:9.5px;letter-spacing:.04em;color:rgba(245,236,215,.42);margin-top:2px;}
+.log-time{font-family:var(--fm);font-size:11px;color:rgba(245,236,215,.5);flex-shrink:0;}
+.fill-big{display:flex;align-items:baseline;gap:6px;margin-bottom:12px;}
+.fill-big .fb-n{font-family:var(--fd);font-size:38px;color:var(--cr);line-height:.9;}
+.fill-big .fb-u{font-family:var(--fm);font-size:13px;color:rgba(245,236,215,.45);}
+
+/* ============================================================
+   ORGA — ONBOARDING / AUTH / TIERS / PLAFOND (IFU)
+============================================================ */
+/* Choix de niveau de compte (OTIER) */
+#ologin,#osignup{background:var(--co);padding:56px 24px max(34px,env(safe-area-inset-bottom));}
+#otier{background:var(--co);padding:54px 24px max(28px,env(safe-area-inset-bottom));overflow-y:auto;}
+.tier-head h2{font-family:var(--fd);font-size:26px;line-height:1;color:var(--cr);margin-bottom:10px;}
+.tier-head h2 em{font-family:var(--fi);font-style:italic;font-weight:400;color:var(--oc);}
+.tier-head p{font-size:13.5px;color:rgba(245,236,215,.55);line-height:1.6;margin-bottom:22px;max-width:36ch;}
+.tier-card{display:block;width:100%;text-align:left;background:var(--co2);border:1.5px solid rgba(245,236,215,.08);border-radius:18px;padding:18px;margin-bottom:13px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .18s,background .18s,transform .12s;}
+.tier-card:active{transform:scale(.99);}
+.tier-card:hover{border-color:rgba(181,80,42,.4);}
+.tier-card.pro{border-color:rgba(181,80,42,.32);background:linear-gradient(165deg,rgba(181,80,42,.1),rgba(181,80,42,.02));}
+.tier-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px;}
+.tier-lvl{font-family:var(--fm);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--oc);}
+.tier-badge{font-family:var(--fm);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap;}
+.tier-badge.free{color:#9FC3CF;background:rgba(120,170,185,.14);border:1px solid rgba(120,170,185,.3);}
+.tier-badge.full{color:var(--onac);background:var(--oc);}
+.tier-name{font-family:var(--fd);font-size:19px;color:var(--cr);line-height:1.05;margin-bottom:12px;}
+.tier-feat{display:flex;flex-direction:column;gap:9px;}
+.tier-fr{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:rgba(245,236,215,.7);line-height:1.4;}
+.tier-fr svg{flex-shrink:0;margin-top:1px;}
+.tier-fr.req svg{color:rgba(245,236,215,.4);}
+.tier-fr.adv svg{color:var(--oc);}
+.tier-fr.lim svg{color:#D9A23C;}
+.tier-cap{margin-top:13px;padding-top:13px;border-top:1px solid rgba(245,236,215,.08);font-family:var(--fm);font-size:11px;color:rgba(245,236,215,.5);display:flex;align-items:center;justify-content:space-between;}
+.tier-cap b{color:var(--cr);font-weight:400;}
+.tier-cap .arr{color:var(--oc);}
+
+/* Champ document (CIP / IFU / RCCM) */
+.doc-field{margin-bottom:16px;}
+.doc-slot{width:100%;height:108px;border-radius:14px;overflow:hidden;display:block;--is-bg:var(--co2);}
+.doc-hint{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(245,236,215,.42);margin-top:7px;line-height:1.4;}
+.doc-hint svg{flex-shrink:0;color:var(--oc);}
+
+/* Bandeau récap niveau (en haut d'osignup) */
+.lvl-banner{display:flex;align-items:center;gap:12px;background:var(--co2);border:1px solid rgba(181,80,42,.25);border-radius:14px;padding:13px 15px;margin-bottom:20px;}
+.lvl-banner .lb-ic{width:38px;height:38px;border-radius:11px;background:rgba(181,80,42,.14);border:1px solid rgba(181,80,42,.26);display:flex;align-items:center;justify-content:center;color:var(--oc);flex-shrink:0;}
+.lvl-banner .lb-tx{flex:1;min-width:0;}
+.lvl-banner .lb-l{font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,236,215,.45);margin-bottom:3px;}
+.lvl-banner .lb-v{font-family:var(--fd);font-size:14px;color:var(--cr);}
+.lvl-banner .lb-chg{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:var(--oc);background:none;border:none;cursor:pointer;text-decoration:underline;flex-shrink:0;}
+
+/* Plafond de ventes (Niveau 1) — dashboard */
+.plafond{background:linear-gradient(160deg,rgba(217,162,60,.13),rgba(217,162,60,.03));border:1px solid rgba(217,162,60,.28);border-radius:16px;padding:16px 17px;margin-bottom:16px;}
+.plf-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px;}
+.plf-l{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#E8B04E;}
+.plf-lvl{font-family:var(--fm);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#E8B04E;background:rgba(217,162,60,.14);border:1px solid rgba(217,162,60,.3);padding:3px 8px;border-radius:99px;white-space:nowrap;}
+.plf-amt{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;}
+.plf-amt .pa-n{font-family:var(--fd);font-size:21px;color:var(--cr);line-height:1;}
+.plf-amt .pa-max{font-family:var(--fm);font-size:12px;color:rgba(245,236,215,.45);white-space:nowrap;}
+.plf-bar{height:8px;border-radius:5px;background:rgba(245,236,215,.08);overflow:hidden;margin-bottom:10px;}
+.plf-bar > i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,#D9A23C,#E8B04E);}
+.plf-note{font-size:11.5px;color:rgba(245,236,215,.5);line-height:1.5;}
+/* CTA IFU (Stratégie 4) */
+.ifu-cta{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:rgba(181,80,42,.1);border:1.5px solid rgba(181,80,42,.32);border-radius:14px;padding:14px 15px;margin-top:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;transition:background .18s;}
+.ifu-cta:active{background:rgba(181,80,42,.18);}
+.ifu-ic{width:40px;height:40px;border-radius:11px;background:rgba(181,80,42,.16);border:1px solid rgba(181,80,42,.3);display:flex;align-items:center;justify-content:center;color:var(--oc);flex-shrink:0;}
+.ifu-tx{flex:1;min-width:0;}
+.ifu-t{display:block;font-family:var(--fd);font-size:13.5px;color:var(--cr);line-height:1.15;margin-bottom:3px;}
+.ifu-s{display:block;font-size:11.5px;color:rgba(245,236,215,.55);line-height:1.4;}
+.ifu-arr{color:var(--oc);flex-shrink:0;}
+/* Pastille niveau dans le profil */
+.acct-lvl{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:99px;}
+.acct-lvl.l1{color:#E8B04E;background:rgba(217,162,60,.13);border:1px solid rgba(217,162,60,.3);}
+.acct-lvl.l2{color:var(--oc);background:rgba(181,80,42,.14);border:1px solid rgba(181,80,42,.3);}
+
+/* OAGENTS — gestion des agents de contrôle (côté organisateur) */
+.oag-new{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:rgba(181,80,42,.1);border:1.5px dashed rgba(181,80,42,.42);border-radius:14px;padding:15px;font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--oc);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:10px;}
+.oag-new:active{background:rgba(181,80,42,.18);transform:scale(.99);}
+.oag-fresh{background:linear-gradient(160deg,rgba(181,80,42,.16),rgba(181,80,42,.03));border:1px solid rgba(181,80,42,.3);border-radius:14px;padding:15px;margin-bottom:14px;animation:srPop .26s cubic-bezier(.2,.8,.3,1.2);}
+.oag-fresh-l{font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--oc);margin-bottom:9px;display:flex;align-items:center;gap:7px;}
+.oag-fresh-code{font-family:var(--fd);font-size:25px;letter-spacing:.08em;color:var(--cr);margin-bottom:7px;}
+.oag-fresh-s{font-size:11.5px;color:rgba(245,236,215,.55);line-height:1.5;}
+.oag-card{background:var(--co2);border:1px solid rgba(245,236,215,.06);border-radius:14px;padding:14px 15px;margin-bottom:10px;}
+.oag-c-top{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.oag-id{display:flex;align-items:center;gap:12px;min-width:0;}
+.oag-av{width:40px;height:40px;border-radius:11px;background:rgba(181,80,42,.14);border:1px solid rgba(181,80,42,.26);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;color:var(--oc);flex-shrink:0;}
+.oag-name{font-family:var(--fd);font-size:14px;color:var(--cr);line-height:1.1;margin-bottom:3px;}
+.oag-zone{font-family:var(--fm);font-size:10px;letter-spacing:.04em;color:rgba(245,236,215,.45);}
+.oag-code-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(245,236,215,.06);}
+.oag-code{font-family:var(--fm);font-size:13px;letter-spacing:.1em;color:var(--cr);background:rgba(245,236,215,.05);border:1px solid rgba(245,236,215,.1);border-radius:8px;padding:7px 12px;white-space:nowrap;}
+.oag-act{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.oag-act button{width:34px;height:34px;border-radius:9px;background:rgba(245,236,215,.05);border:1px solid rgba(245,236,215,.1);color:rgba(245,236,215,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .15s,border-color .15s;}
+.oag-act button:active{transform:scale(.92);}
+.oag-act button.rev:hover{color:#E0937F;border-color:rgba(200,57,43,.35);}
+.oag-card.revoked{opacity:.5;}
 
 </style>
 </head>
@@ -973,6 +1213,14 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
           </div>
           <div class="rc-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
         </button>
+        <button class="role-card role-card-c" onclick="nav('conb')">
+          <div class="rc-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3"/><path d="M21 14v.01"/><path d="M14 21h.01"/><path d="M17 21h.01"/><path d="M21 17v4"/></svg></div>
+          <div class="rc-txt">
+            <div class="rc-name">Je contrôle <span class="rc-tag">Terrain</span></div>
+            <div class="rc-desc">Scanne les billets à l'entrée et suis les entrées en direct.</div>
+          </div>
+          <div class="rc-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </button>
       </div>
     </div>
   </div>
@@ -1102,7 +1350,7 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
     <div class="auth-confirm">
       <div class="confirm-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
       <h2 class="confirm-h">Vérifie tes emails</h2>
-      <p class="confirm-p">On a envoyé un lien de confirmation à <strong id="confirmEmail">kofi@email.com</strong>. Clique dessus pour activer ton compte.</p>
+      <p class="confirm-p">On a envoyé un lien de confirmation à <strong id="confirmEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3a8aca5aa83a6aea2aaafeda0acae">[email&#160;protected]</a></strong>. Clique dessus pour activer ton compte.</p>
       <div class="confirm-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Le lien expire dans 24 heures</div>
     </div>
     <button class="btn-p" onclick="nav('s7')">J'ai confirmé mon email</button>
@@ -1517,15 +1765,15 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
        ESPACE ORGANISATEUR
   ============================================================ -->
 
-  <!-- OONB — DEVENIR ORGANISATEUR -->
+  <!-- OONB — ESPACE ORGA : INTRO + CHOIX AUTH -->
   <div class="screen" id="oonb">
     <button class="back-btn" onclick="nav('srole')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       Retour
     </button>
-    <div class="oo-zan"><svg width="92" viewBox="0 0 240 320"><use href="#z-oc"/></svg></div>
+    <div class="oo-zan"><svg width="84" viewBox="0 0 240 320"><use href="#z-oc"/></svg></div>
     <div class="oo-head">
-      <h2>Deviens<br><em>organisateur</em></h2>
+      <h2>Espace<br><em>organisateur</em></h2>
       <p>Crée tes événements, vends tes billets et suis tes recettes — directement depuis Wamiton.</p>
     </div>
     <div class="oo-perks">
@@ -1542,9 +1790,99 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
         <div><div class="oo-perk-t">Reversement Mobile Money</div><div class="oo-perk-s">Tes recettes sur MTN ou Moov, 48h après l'événement.</div></div>
       </div>
     </div>
-    <div class="auth-scroll" style="flex:initial;">
+    <button class="btn-p" onclick="nav('otier')" style="margin-bottom:10px;">Créer un compte orga</button>
+    <button class="btn-s" onclick="nav('ologin')">J'ai déjà un compte</button>
+  </div>
+
+  <!-- OLOGIN — CONNEXION ORGANISATEUR -->
+  <div class="screen" id="ologin">
+    <button class="back-btn" onclick="nav('oonb')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div class="form-head">
+      <h2>Ravi de te<br>revoir</h2>
+      <p>Connecte-toi à ton espace organisateur pour gérer tes événements.</p>
+    </div>
+    <div class="auth-toggle">
+      <button class="at-btn on" id="atOEmail" onclick="loginMethodO('email')">Email</button>
+      <button class="at-btn" id="atOPhone" onclick="loginMethodO('phone')">Téléphone</button>
+    </div>
+    <div id="ologinEmail">
+      <label class="field-label">Email professionnel</label>
+      <input type="email" class="txt-input" value="contact@gangbe.bj" autocomplete="email">
+    </div>
+    <div id="ologinPhone" hidden>
+      <label class="field-label">Téléphone</label>
+      <input type="tel" class="txt-input" value="+229 97 12 34 56" inputmode="tel">
+    </div>
+    <label class="field-label">Mot de passe</label>
+    <div class="pwd-wrap">
+      <input id="loPwd" type="password" class="txt-input" value="motdepasse" style="margin-bottom:0;">
+      <button class="pwd-eye" type="button" onclick="togglePwd('loPwd',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
+    <p class="input-note">Tu resteras connecté 30 jours sur cet appareil.</p>
+    <button class="btn-p" onclick="loginOrg()" style="margin-top:auto;">Se connecter</button>
+    <div class="switch-link">Pas encore de compte ? <span onclick="nav('otier')">Créer un compte</span></div>
+  </div>
+
+  <!-- OTIER — CHOIX DU NIVEAU DE COMPTE -->
+  <div class="screen" id="otier">
+    <button class="back-btn" onclick="nav('oonb')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div class="tier-head">
+      <h2>Choisis ton<br><em>niveau</em></h2>
+      <p>Pas besoin d'entreprise formelle pour démarrer. Tu pourras passer Pro quand tu veux.</p>
+    </div>
+    <button class="tier-card" onclick="chooseTier(1)">
+      <div class="tier-top">
+        <span class="tier-lvl">Niveau 1</span>
+        <span class="tier-badge free">Sans entreprise</span>
+      </div>
+      <div class="tier-name">Compte Basique</div>
+      <div class="tier-feat">
+        <div class="tier-fr req"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2"/><path d="M15 12h2"/><path d="M7 16h10"/></svg>Pièce d'identité (CIP) + téléphone</div>
+        <div class="tier-fr lim"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Plafond de ventes : 300 000 FCFA</div>
+        <div class="tier-fr lim"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Retrait des fonds après l'événement</div>
+      </div>
+      <div class="tier-cap"><span>Soirées étudiantes · petits créateurs</span><span class="arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span></div>
+    </button>
+    <button class="tier-card pro" onclick="chooseTier(2)">
+      <div class="tier-top">
+        <span class="tier-lvl">Niveau 2</span>
+        <span class="tier-badge full">Recommandé</span>
+      </div>
+      <div class="tier-name">Compte Pro</div>
+      <div class="tier-feat">
+        <div class="tier-fr req"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents pro : IFU + RCCM</div>
+        <div class="tier-fr adv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ventes illimitées</div>
+        <div class="tier-fr adv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Retrait libre des fonds</div>
+      </div>
+      <div class="tier-cap"><span>Structures · producteurs établis</span><span class="arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span></div>
+    </button>
+    <p class="input-note" style="text-align:center;margin-top:6px;">Tu pourras passer du Niveau 1 au Niveau 2 à tout moment.</p>
+  </div>
+
+  <!-- OSIGNUP — INSCRIPTION ORGA (selon niveau) -->
+  <div class="screen" id="osignup">
+    <button class="back-btn" onclick="nav('otier')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div class="form-head">
+      <h2>Crée ton<br>compte orga</h2>
+      <p>Quelques infos pour activer ton espace et commencer à vendre.</p>
+    </div>
+    <div class="lvl-banner">
+      <div class="lb-ic" id="osLvlIc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M7 16h10"/></svg></div>
+      <div class="lb-tx"><div class="lb-l">Niveau choisi</div><div class="lb-v" id="osLvlName">Niveau 1 · Compte Basique</div></div>
+      <button class="lb-chg" onclick="nav('otier')">Changer</button>
+    </div>
+    <div class="auth-scroll">
       <label class="field-label">Nom de la structure</label>
-      <input type="text" class="txt-input" value="Gangbé Productions" placeholder="Ex : Gangbé Productions">
+      <input type="text" class="txt-input" placeholder="Ex : Gangbé Productions">
       <label class="field-label">Type d'organisateur</label>
       <div class="cat-pick">
         <button class="cat-opt on" onclick="pickOne(this)">Producteur</button>
@@ -1553,11 +1891,45 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
         <button class="cat-opt" onclick="pickOne(this)">Indépendant</button>
       </div>
       <label class="field-label">Personne à contacter</label>
-      <input type="text" class="txt-input" value="Kofi Koffi" placeholder="Nom complet">
-      <label class="field-label">Téléphone professionnel</label>
-      <input type="tel" class="txt-input" value="+229 97 12 34 56" inputmode="tel" style="margin-bottom:0;">
+      <input type="text" class="txt-input" placeholder="Nom complet">
+      <label class="field-label">Téléphone</label>
+      <input type="tel" class="txt-input" placeholder="+229 97 00 00 00" inputmode="tel">
+      <label class="field-label">Email</label>
+      <input type="email" class="txt-input" placeholder="contact@email.bj" autocomplete="email">
+      <label class="field-label">Mot de passe</label>
+      <div class="pwd-wrap">
+        <input id="osPwd" type="password" class="txt-input" placeholder="••••••••" style="margin-bottom:0;">
+        <button class="pwd-eye" type="button" onclick="togglePwd('osPwd',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <p class="input-hint">8 caractères minimum.</p>
+
+      <!-- Niveau 1 — vérification informelle (CIP) -->
+      <div id="osDocsT1">
+        <div class="divider-or">Vérification d'identité</div>
+        <label class="field-label">Numéro CIP</label>
+        <input type="text" class="txt-input" placeholder="Ex : 0123 4567 8901" inputmode="numeric" style="font-family:var(--fm);letter-spacing:.08em;">
+        <label class="field-label">Pièce d'identité (CIP)</label>
+        <div class="doc-field">
+          <image-slot id="docCip" class="doc-slot" shape="rounded" radius="14" placeholder="Photo recto de la CIP"></image-slot>
+          <div class="doc-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Suffit pour démarrer. Plafond de 300 000 FCFA jusqu'à l'obtention de ton IFU.</div>
+        </div>
+      </div>
+
+      <!-- Niveau 2 — documents pro (IFU + RCCM) -->
+      <div id="osDocsT2" hidden>
+        <div class="divider-or">Documents professionnels</div>
+        <label class="field-label">Numéro IFU</label>
+        <input type="text" class="txt-input" placeholder="Ex : 3201 9876 5432 1" inputmode="numeric" style="font-family:var(--fm);letter-spacing:.08em;">
+        <label class="field-label">Numéro RCCM</label>
+        <input type="text" class="txt-input" placeholder="Ex : RB/COT/24 B 12345" style="font-family:var(--fm);">
+        <label class="field-label">Attestation IFU / RCCM</label>
+        <div class="doc-field">
+          <image-slot id="docRccm" class="doc-slot" shape="rounded" radius="14" placeholder="Dépose l'attestation (PDF/photo)"></image-slot>
+          <div class="doc-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Compte vérifié sous 24-48h. Ventes illimitées dès l'approbation.</div>
+        </div>
+      </div>
     </div>
-    <button class="btn-p" onclick="nav('odash')" style="margin-top:18px;">Activer mon espace orga</button>
+    <button class="btn-p" onclick="finishSignup()" style="margin-top:14px;">Activer mon espace orga</button>
     <p class="input-note" style="text-align:center;margin-top:12px;margin-bottom:0;">Tu pourras revenir à l'espace participant à tout moment.</p>
   </div>
 
@@ -1569,7 +1941,10 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
           <div class="o-eyebrow">Espace organisateur <span class="oconsole">Console</span></div>
           <div class="o-h1">Gangbé <em>Productions</em></div>
         </div>
-        <div class="avatar" onclick="nav('oprofile')">GP</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="o-home" onclick="nav('srole')" title="Accueil Wamiton" aria-label="Accueil Wamiton"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
+          <div class="avatar" onclick="nav('oprofile')">GP</div>
+        </div>
       </div>
       <div class="prof2-stats" style="margin-bottom:0;">
         <div class="ps-cell"><div class="ps-num" style="color:var(--oc);">1,11 M</div><div class="ps-lbl">Recette (XOF)</div></div>
@@ -1587,6 +1962,21 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
       <button class="chip off">Passés</button>
     </div>
     <div class="o-scroll" style="padding-top:4px;">
+      <!-- Plafond de ventes (Niveau 1 uniquement) -->
+      <div class="plafond" id="odashPlafond" style="display:none;">
+        <div class="plf-top">
+          <span class="plf-l"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Plafond de ventes</span>
+          <span class="plf-lvl">Niveau 1 · Basique</span>
+        </div>
+        <div class="plf-amt"><span class="pa-n">185 000</span><span class="pa-max">/ 300 000 FCFA</span></div>
+        <div class="plf-bar"><i style="width:62%;"></i></div>
+        <div class="plf-note">Plus que <b style="color:#E8B04E;">115 000 FCFA</b> avant d'atteindre ton plafond. Les fonds seront reversés après l'événement.</div>
+        <a class="ifu-cta" href="https://ifu.impots.bj/demande-ifu" target="_blank" rel="noopener">
+          <span class="ifu-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg></span>
+          <span class="ifu-tx"><span class="ifu-t">Passe en illimité : obtiens ton IFU gratuitement</span><span class="ifu-s">En ligne, en 5 min, sur le portail officiel de la DGI →</span></span>
+          <span class="ifu-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+        </a>
+      </div>
       <!-- Publié actif -->
       <div class="oe-card" onclick="openEvent('vaudou')">
         <div class="oe-card-top">
@@ -2027,7 +2417,7 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
         <div class="prof2-av">GP<span class="prof2-verif"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A1208" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="prof2-name">Gangbé Productions</div>
         <div class="prof2-phone">+229 97 12 34 56</div>
-        <div class="prof2-member">Organisateur vérifié</div>
+        <div class="prof2-member" id="oprofLevel">Niveau 2 · Compte Pro</div>
       </div>
       <div class="prof2-stats">
         <div class="ps-cell"><div class="ps-num">1</div><div class="ps-lbl">En vente</div></div>
@@ -2036,11 +2426,21 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
         <div class="ps-div"></div>
         <div class="ps-cell"><div class="ps-num">822</div><div class="ps-lbl">Vendus</div></div>
       </div>
+      <a class="ifu-cta" id="oprofIfu" href="https://ifu.impots.bj/demande-ifu" target="_blank" rel="noopener" style="display:none;margin-top:0;margin-bottom:22px;">
+        <span class="ifu-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg></span>
+        <span class="ifu-tx"><span class="ifu-t">Passe au Niveau 2 (Pro)</span><span class="ifu-s">Obtiens ton IFU gratuitement en 5 min · ventes illimitées →</span></span>
+        <span class="ifu-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+      </a>
       <div class="prof2-group-lbl">Gestion</div>
       <div class="prof2-card">
         <button class="prof2-row" onclick="nav('odash')">
           <span class="p2-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>
           <span class="p2-txt"><span class="p2-label">Mes événements</span><span class="p2-sub">1 publié · 1 en attente · 1 brouillon</span></span>
+          <span class="p2-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </button>
+        <button class="prof2-row" onclick="nav('oagents')">
+          <span class="p2-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="p2-txt"><span class="p2-label">Agents de contrôle</span><span class="p2-sub">Codes d'accès pour le scan à l'entrée</span></span>
           <span class="p2-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
         </button>
         <button class="prof2-row" onclick="nav('opayout')">
@@ -2073,10 +2473,371 @@ image-slot::part(ring){border-color:rgba(245,236,215,.16);}
     </div>
   </div>
 
+  <!-- OAGENTS — GESTION DES AGENTS DE CONTRÔLE -->
+  <div class="screen o-screen" id="oagents">
+    <div class="oev-head" style="padding-bottom:8px;">
+      <button class="oev-back" onclick="nav('oprofile')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Profil
+      </button>
+      <div class="o-h1" style="font-size:24px;">Agents de contrôle</div>
+      <div class="oev-meta" style="margin-top:8px;">Crée des accès temporaires pour scanner les billets à l'entrée. Chaque code est limité à un événement et expire après sa date.</div>
+    </div>
+    <div class="o-scroll" style="padding-top:12px;">
+      <div class="ev-select" onclick="nav('odash')">
+        <div class="es-tx"><div class="es-l">Événement</div><div class="es-v">VAUDOU NIGHTS — Édition Spéciale</div></div>
+        <div class="es-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <button class="oag-new" onclick="createAgentAccess()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Créer un accès agent
+      </button>
+      <!-- Code fraîchement généré -->
+      <div class="oag-fresh" id="oagFresh" hidden>
+        <div class="oag-fresh-l"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Nouveau code agent</div>
+        <div class="oag-fresh-code" id="oagFreshCode">GANGBE-0000</div>
+        <div class="oag-fresh-s">Partage ce code avec ton agent. Il l'utilisera dans « Je contrôle » pour scanner. Accès limité à cet événement, révocable à tout moment.</div>
+      </div>
+      <div class="o-eyebrow" style="margin:18px 0 11px;">Agents · <span id="oagCount">3</span> · 1 événement</div>
+      <div id="oagList">
+        <div class="oag-card">
+          <div class="oag-c-top">
+            <div class="oag-id"><div class="oag-av">MS</div><div><div class="oag-name">Mariam S.</div><div class="oag-zone">Entrée VIP</div></div></div>
+            <span class="st-badge st-pub">Actif</span>
+          </div>
+          <div class="oag-code-row">
+            <span class="oag-code">GANGBE-2208</span>
+            <div class="oag-act">
+              <button onclick="copyCode('GANGBE-2208',this)" title="Copier"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+              <button class="rev" onclick="revokeAgent(this)" title="Révoquer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="oag-card">
+          <div class="oag-c-top">
+            <div class="oag-id"><div class="oag-av">RT</div><div><div class="oag-name">Raoul T.</div><div class="oag-zone">Entrée latérale</div></div></div>
+            <span class="st-badge st-pub">Actif</span>
+          </div>
+          <div class="oag-code-row">
+            <span class="oag-code">GANGBE-5519</span>
+            <div class="oag-act">
+              <button onclick="copyCode('GANGBE-5519',this)" title="Copier"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+              <button class="rev" onclick="revokeAgent(this)" title="Révoquer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="oag-card">
+          <div class="oag-c-top">
+            <div class="oag-id"><div class="oag-av" style="background:rgba(245,236,215,.06);border-color:rgba(245,236,215,.12);color:rgba(245,236,215,.4);">FD</div><div><div class="oag-name" style="color:rgba(245,236,215,.7);">Fatou D.</div><div class="oag-zone">Pas encore connectée</div></div></div>
+            <span class="st-badge st-wait">En attente</span>
+          </div>
+          <div class="oag-code-row">
+            <span class="oag-code">GANGBE-7741</span>
+            <div class="oag-act">
+              <button onclick="copyCode('GANGBE-7741',this)" title="Copier"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+              <button class="rev" onclick="revokeAgent(this)" title="Révoquer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lock-note" style="margin-top:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Les codes donnent accès uniquement au scan de cet événement et expirent automatiquement après sa date. Suis l'activité en direct dans « Je contrôle ».
+      </div>
+    </div>
+    <div class="bnav bnav-org">
+      <button class="bn-item" onclick="nav('odash')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div><span class="bn-lbl">Bord</span></button>
+      <button class="bn-item" onclick="startCreate()"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><span class="bn-lbl">Créer</span></button>
+      <button class="bn-item" onclick="nav('osales')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Ventes</span></button>
+      <button class="bn-item on" onclick="nav('oprofile')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="bn-lbl">Profil</span></button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SURFACE C — CONTRÔLE DES ENTRÉES (CHECK-IN)
+  ============================================================ -->
+
+  <!-- CONB — ONBOARDING CONTRÔLE -->
+  <div class="screen" id="conb">
+    <button class="back-btn" onclick="nav('srole')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div class="conb-badge">
+      <div class="conb-glyph"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3"/><path d="M21 14v.01"/><path d="M14 21h.01"/><path d="M21 17v4"/></svg></div>
+    </div>
+    <div class="oo-head" style="text-align:center;">
+      <h2 style="font-family:var(--fd);font-size:28px;line-height:.98;color:var(--cr);margin-bottom:8px;">Contrôle des<br><em style="font-family:var(--fi);font-style:italic;font-weight:400;color:var(--oc);">entrées</em></h2>
+      <p style="font-size:13.5px;color:rgba(245,236,215,.5);line-height:1.6;max-width:32ch;margin:0 auto 22px;">Valide les billets à l'entrée avec ton smartphone. Rapide, fiable, même sans réseau.</p>
+    </div>
+    <div class="oo-perks">
+      <div class="oo-perk">
+        <div class="oo-perk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div>
+        <div><div class="oo-perk-t">Scan QR instantané</div><div class="oo-perk-s">Vert = entrée autorisée, rouge = billet déjà utilisé.</div></div>
+      </div>
+      <div class="oo-perk">
+        <div class="oo-perk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+        <div><div class="oo-perk-t">Fonctionne hors-ligne</div><div class="oo-perk-s">Liste synchronisée avant le jour J, aucun réseau requis.</div></div>
+      </div>
+      <div class="oo-perk">
+        <div class="oo-perk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="oo-perk-t">Plusieurs agents</div><div class="oo-perk-s">Ouvre plusieurs files, suis les entrées en temps réel.</div></div>
+      </div>
+    </div>
+    <button class="btn-p" onclick="nav('cauth')">Commencer</button>
+  </div>
+
+  <!-- CAUTH — AUTHENTIFICATION AGENT / ORGA -->
+  <div class="screen" id="cauth">
+    <button class="back-btn" onclick="nav('conb')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour
+    </button>
+    <div class="form-head">
+      <h2>Identifie-toi</h2>
+      <p>Agent de contrôle avec un code, ou organisateur avec ton compte.</p>
+    </div>
+    <div class="auth-toggle">
+      <button class="at-btn on" id="atAgent" onclick="cAuthMode('agent')">Agent</button>
+      <button class="at-btn" id="atOrga" onclick="cAuthMode('orga')">Organisateur</button>
+    </div>
+
+    <!-- Mode AGENT -->
+    <div id="cAuthAgent">
+      <label class="field-label">Code d'accès agent</label>
+      <input type="text" class="txt-input" value="GANGBE-7741" placeholder="Code reçu de l'organisateur" style="font-family:var(--fm);letter-spacing:.12em;">
+      <label class="field-label">Ton nom (agent)</label>
+      <input type="text" class="txt-input" value="Koffi A." placeholder="Prénom + initiale">
+      <div class="cev-opt sel" style="cursor:default;margin-top:4px;">
+        <span class="cev-radio"></span>
+        <span class="cev-tx"><span class="cev-name">VAUDOU NIGHTS — Édition Spéciale</span><span class="cev-meta">Événement lié à ce code · 7 Juin</span></span>
+      </div>
+    </div>
+
+    <!-- Mode ORGANISATEUR -->
+    <div id="cAuthOrga" hidden>
+      <label class="field-label">Email professionnel</label>
+      <input type="email" class="txt-input" value="contact@gangbe.bj" autocomplete="email">
+      <label class="field-label">Mot de passe</label>
+      <div class="pwd-wrap">
+        <input id="caPwd" type="password" class="txt-input" value="motdepasse" style="margin-bottom:0;">
+        <button class="pwd-eye" type="button" onclick="togglePwd('caPwd',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="o-eyebrow" style="margin:16px 0 11px;">Événement à contrôler</div>
+      <div class="cev-pick">
+        <button class="cev-opt sel" onclick="pickCev(this)">
+          <span class="cev-radio"></span>
+          <span class="cev-tx"><span class="cev-name">VAUDOU NIGHTS — Édition Spéciale</span><span class="cev-meta">Sam 7 Juin · Champ de Foire</span></span>
+        </button>
+        <button class="cev-opt" onclick="pickCev(this)">
+          <span class="cev-radio"></span>
+          <span class="cev-tx"><span class="cev-name">Jazz au Bénin — Orchestre National</span><span class="cev-meta">Ven 13 Juin · Palais des Congrès</span></span>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-p" onclick="nav('csync')" style="margin-top:22px;">Démarrer le contrôle</button>
+    <p class="input-note" style="text-align:center;margin-top:12px;margin-bottom:0;font-size:11px;color:rgba(245,236,215,.4);">Accès agent temporaire · expire automatiquement après l'événement.</p>
+  </div>
+
+  <!-- CSYNC — SYNCHRONISATION HORS-LIGNE -->
+  <div class="screen c-screen" id="csync">
+    <div class="o-top" style="padding-bottom:0;">
+      <button class="back-btn" onclick="nav('cauth')" style="margin-bottom:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Retour
+      </button>
+    </div>
+    <div class="sync-wrap">
+      <div class="sync-orb">
+        <svg class="sync-ring-svg" viewBox="0 0 200 200"><circle class="sync-ring-bg" cx="100" cy="100" r="90"/><circle class="sync-ring-fg" id="syncRing" cx="100" cy="100" r="90"/></svg>
+        <div class="sync-core">
+          <div class="sc-ic" id="syncIcon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></div>
+          <div class="sync-pct" id="syncPct" style="display:none;">0%</div>
+          <div class="sync-state" id="syncState">Prêt à synchroniser</div>
+        </div>
+      </div>
+      <div class="sync-h">Synchronise la <em>liste</em></div>
+      <p class="sync-p">Télécharge tous les billets valides pour scanner même <b style="color:rgba(245,236,215,.7);font-weight:600;">sans connexion</b> le jour J.</p>
+      <div class="sync-meta">
+        <div class="sync-mrow"><span class="sync-ml">Billets valides</span><span class="sync-mv" id="syncCount">500 billets</span></div>
+        <div class="sync-mrow"><span class="sync-ml">Taille des données</span><span class="sync-mv">1,8 Mo</span></div>
+        <div class="sync-mrow"><span class="sync-ml">Dernière synchro</span><span class="sync-mv" id="syncLast">Jamais</span></div>
+      </div>
+    </div>
+    <div style="padding:0 20px max(22px,env(safe-area-inset-bottom));flex-shrink:0;">
+      <button class="btn-p" id="syncBtn" onclick="doSync()">Synchroniser maintenant</button>
+    </div>
+  </div>
+
+  <!-- CSCAN — SCANNER -->
+  <div class="screen c-screen" id="cscan">
+    <div class="scan-stage">
+      <div class="scan-top">
+        <div class="scan-evrow">
+          <div>
+            <div class="scan-evname">VAUDOU NIGHTS</div>
+            <div class="scan-evsub">Champ de Foire · Entrée principale</div>
+          </div>
+          <button class="scan-quit" onclick="nav('cteam')" title="Quitter"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+        </div>
+        <button class="sync-pill" id="scanSyncPill" onclick="nav('csync')"><span class="sp-dot"></span><span id="scanSyncTxt">Sync. il y a 8 min · 500 billets</span></button>
+      </div>
+      <div class="scan-frame">
+        <div class="scan-glyph"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3"/><path d="M21 21v.01"/><path d="M21 14v.01"/><path d="M14 21h3"/></svg></div>
+        <div class="scan-corner tl"></div>
+        <div class="scan-corner tr"></div>
+        <div class="scan-corner bl"></div>
+        <div class="scan-corner br"></div>
+        <div class="scan-laser"></div>
+      </div>
+      <div class="scan-hint">Place le QR du billet dans le cadre</div>
+    </div>
+    <div class="scan-bottom">
+      <div class="scan-count"><span>Entrées validées</span><b id="scanCount">218</b><span>/ 500</span></div>
+      <div class="sim-label">Démo — simuler un scan</div>
+      <div class="sim-btns">
+        <button class="sim-btn ok" onclick="simScan('valid')">Billet valide</button>
+        <button class="sim-btn used" onclick="simScan('used')">Déjà utilisé</button>
+        <button class="sim-btn bad" onclick="simScan('bad')">Invalide</button>
+      </div>
+    </div>
+
+    <!-- Résultat de scan -->
+    <div class="scan-result" id="scanResult">
+      <div class="sr-mark" id="srMark"></div>
+      <div class="sr-status" id="srStatus"></div>
+      <div class="sr-reason" id="srReason"></div>
+      <div class="sr-card" id="srCard"></div>
+      <button class="sr-next" onclick="closeScanResult()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+        Scanner le suivant
+      </button>
+    </div>
+
+    <div class="bnav bnav-c">
+      <button class="bn-item on" onclick="nav('cscan')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div><span class="bn-lbl">Scanner</span></button>
+      <button class="bn-item" onclick="nav('cstats')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Stats</span></button>
+      <button class="bn-item" onclick="nav('cteam')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="bn-lbl">Équipe</span></button>
+    </div>
+  </div>
+
+  <!-- CSTATS — STATISTIQUES TEMPS RÉEL -->
+  <div class="screen c-screen" id="cstats">
+    <div class="o-top">
+      <div class="o-eyebrow">Affluence <span class="cterrain">En direct</span></div>
+      <div class="o-h1">VAUDOU NIGHTS</div>
+    </div>
+    <div class="o-scroll" style="padding-top:6px;">
+      <div class="live-tag"><span class="ld"></span>Temps réel · il y a 12 s</div>
+      <div class="panel" style="text-align:center;">
+        <div class="panel-h" style="justify-content:center;margin-bottom:10px;"><div class="panel-t">Taux de remplissage</div></div>
+        <div class="fill-big" style="justify-content:center;"><span class="fb-n" id="cstFill">44</span><span class="fb-u">% · <span id="cstIn">218</span> / 500 entrées</span></div>
+        <div class="cs-bar" style="height:9px;"><i id="cstFillBar" style="width:44%;background:var(--oc);"></i></div>
+      </div>
+      <div class="kpi3">
+        <div class="k3"><div class="k3-n acc" id="cstTotal">218</div><div class="k3-l">Entrées</div></div>
+        <div class="k3"><div class="k3-n">282</div><div class="k3-l">Restantes</div></div>
+        <div class="k3"><div class="k3-n">3</div><div class="k3-l">Refusés</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-t">Affluence</div><div class="panel-s">Entrées / 15 min</div></div>
+        <div class="chart">
+          <div class="bar-wrap"><div class="bar" style="height:18%;"></div><div class="bar-x">18h</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:34%;"></div><div class="bar-x">18h30</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:52%;"></div><div class="bar-x">19h</div></div>
+          <div class="bar-wrap"><div class="bar peak" style="height:100%;"></div><div class="bar-x">19h30</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:80%;"></div><div class="bar-x">19h45</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:46%;"></div><div class="bar-x">20h</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-t">Par catégorie</div><div class="panel-s">Entrés / vendus</div></div>
+        <div class="cat-stat">
+          <div class="cat-stat-top"><span class="cs-name">Standard</span><span class="cs-num"><b>174</b> / 268 entrés</span></div>
+          <div class="cs-bar"><i style="width:65%;background:var(--oc);"></i></div>
+        </div>
+        <div class="cat-stat">
+          <div class="cat-stat-top"><span class="cs-name">VIP</span><span class="cs-num"><b>44</b> / 74 entrés</span></div>
+          <div class="cs-bar"><i style="width:59%;background:#7FC499;"></i></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-h"><div class="panel-t">Derniers scans</div><div class="panel-s">Historique</div></div>
+        <div class="scan-log" id="scanLog">
+          <div class="log-row"><div class="log-ic ok"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="log-tx"><div class="log-name">Adjoavi K.</div><div class="log-sub">Standard · WMT-2026-4821</div></div><div class="log-time">20:14</div></div>
+          <div class="log-row"><div class="log-ic ok"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="log-tx"><div class="log-name">Sègbé M.</div><div class="log-sub">VIP · WMT-2026-4793</div></div><div class="log-time">20:13</div></div>
+          <div class="log-row"><div class="log-ic no"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><div class="log-tx"><div class="log-name">Billet déjà utilisé</div><div class="log-sub">WMT-2026-4655 · entré 20:01</div></div><div class="log-time">20:12</div></div>
+          <div class="log-row"><div class="log-ic ok"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="log-tx"><div class="log-name">Koffi D.</div><div class="log-sub">Standard · WMT-2026-4702</div></div><div class="log-time">20:11</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="bnav bnav-c">
+      <button class="bn-item" onclick="nav('cscan')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div><span class="bn-lbl">Scanner</span></button>
+      <button class="bn-item on" onclick="nav('cstats')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Stats</span></button>
+      <button class="bn-item" onclick="nav('cteam')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="bn-lbl">Équipe</span></button>
+    </div>
+  </div>
+
+  <!-- CTEAM — ÉQUIPE D'AGENTS -->
+  <div class="screen c-screen" id="cteam">
+    <div class="o-top">
+      <div class="o-eyebrow">Agents de contrôle <span class="cterrain">En service</span></div>
+      <div class="o-h1">Équipe</div>
+    </div>
+    <div class="o-scroll" style="padding-top:6px;">
+      <div class="cteam-counter">
+        <div class="cc-num" id="teamEntered">218<span class="u"> / 500</span></div>
+        <div class="cc-tx">
+          <div class="cc-l">Personnes entrées</div>
+          <div class="cc-rate">+34 sur les 10 dernières minutes</div>
+        </div>
+      </div>
+      <div class="o-eyebrow" style="margin:6px 0 11px;">Agents · 3 files ouvertes</div>
+      <div class="agent-row">
+        <div class="ag-av">KA</div>
+        <div class="ag-tx"><div class="ag-name">Koffi A. <span class="ag-dot live"></span></div><div class="ag-meta">Entrée principale · toi</div></div>
+        <div class="ag-scans">112<span class="u">scans</span></div>
+      </div>
+      <div class="agent-row">
+        <div class="ag-av">MS</div>
+        <div class="ag-tx"><div class="ag-name">Mariam S. <span class="ag-dot live"></span></div><div class="ag-meta">Entrée VIP · actif</div></div>
+        <div class="ag-scans">68<span class="u">scans</span></div>
+      </div>
+      <div class="agent-row">
+        <div class="ag-av">RT</div>
+        <div class="ag-tx"><div class="ag-name">Raoul T. <span class="ag-dot live"></span></div><div class="ag-meta">Entrée latérale · actif</div></div>
+        <div class="ag-scans">38<span class="u">scans</span></div>
+      </div>
+      <div class="agent-row">
+        <div class="ag-av" style="background:rgba(245,236,215,.06);border-color:rgba(245,236,215,.12);color:rgba(245,236,215,.4);">FD</div>
+        <div class="ag-tx"><div class="ag-name" style="color:rgba(245,236,215,.6);">Fatou D. <span class="ag-dot off"></span></div><div class="ag-meta">Pas encore connectée</div></div>
+        <div class="ag-scans" style="color:rgba(245,236,215,.35);">0<span class="u">scans</span></div>
+      </div>
+      <div class="lock-note" style="margin-top:4px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Les accès agents sont créés par l'organisateur depuis <b style="color:var(--oc);font-weight:600;">Profil › Agents de contrôle</b>. Cette vue suit l'activité en direct.
+      </div>
+      <div class="lock-note" style="margin-top:16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Les accès agents expirent automatiquement après l'événement. Un même billet ne peut pas être validé deux fois, même par deux agents.
+      </div>
+      <button class="prof2-logout" onclick="logoutAgent()" style="margin-top:16px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Se déconnecter
+      </button>
+    </div>
+    <div class="bnav bnav-c">
+      <button class="bn-item" onclick="nav('cscan')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div><span class="bn-lbl">Scanner</span></button>
+      <button class="bn-item" onclick="nav('cstats')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="bn-lbl">Stats</span></button>
+      <button class="bn-item on" onclick="nav('cteam')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="bn-lbl">Équipe</span></button>
+    </div>
+  </div>
+
 </div><!-- #device -->
 
-<script>
-const ALL=['s1','srole','s2','s3','s4','s5','s6','sforgot','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17','oonb','odash','oevent','ocreate','osubmit','osales','opayout','oprofile'];
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const ALL=['s1','srole','s2','s3','s4','s5','s6','sforgot','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17','oonb','ologin','otier','osignup','odash','oevent','ocreate','osubmit','osales','opayout','oprofile','oagents','conb','cauth','csync','cscan','cstats','cteam'];
 let prevScreen='s1';
 
 function nav(id){
@@ -2338,6 +3099,230 @@ function syncDates(){
   document.getElementById('dkAlert').classList.toggle('hide',!(emit<close));
 }
 /* (format wizard uniquement) */
+
+/* ============================================================
+   SURFACE C — CONTRÔLE DES ENTRÉES (Check-in)
+============================================================ */
+/* Sélection de l'événement à contrôler */
+function pickCev(el){
+  document.querySelectorAll('#conb .cev-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+/* État du contrôle */
+let cState={entered:218,cap:500,refused:3,synced:false};
+
+/* US-041 — Synchronisation de la liste hors-ligne */
+let syncing=false;
+function doSync(){
+  if(syncing)return;
+  syncing=true;
+  const ring=document.getElementById('syncRing');
+  const pct=document.getElementById('syncPct');
+  const state=document.getElementById('syncState');
+  const icon=document.getElementById('syncIcon');
+  const btn=document.getElementById('syncBtn');
+  const C=565;
+  icon.style.display='none';
+  pct.style.display='block';
+  state.textContent='Téléchargement…';
+  btn.textContent='Synchronisation…';
+  btn.style.opacity='.5';btn.style.pointerEvents='none';
+  const start=performance.now(),DUR=1900;
+  function tick(now){
+    const p=Math.min((now-start)/DUR,1);
+    pct.textContent=Math.round(p*100)+'%';
+    ring.style.strokeDashoffset=C*(1-p);
+    if(p<1){requestAnimationFrame(tick);return;}
+    // terminé
+    syncing=false;cState.synced=true;
+    pct.style.display='none';
+    icon.style.display='block';
+    icon.innerHTML='<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    state.textContent='Liste à jour';
+    document.getElementById('syncLast').textContent="À l'instant";
+    document.getElementById('syncLast').classList.add('ok');
+    document.getElementById('syncCount').textContent='500 billets';
+    // pastille scanner repasse au vert
+    const pill=document.getElementById('scanSyncPill');
+    pill.classList.remove('warn');
+    document.getElementById('scanSyncTxt').textContent="Sync. à l'instant · 500 billets";
+    btn.textContent='Ouvrir le scanner';
+    btn.style.opacity='1';btn.style.pointerEvents='auto';
+    btn.setAttribute('onclick','nav("cscan")');
+  }
+  requestAnimationFrame(tick);
+}
+
+/* US-033 — Simulation d'un scan (valide / déjà utilisé / invalide) */
+const SCAN_FIXTURES=[
+  {name:'Adjoavi Koudjo',cat:'Standard',ref:'WMT-2026-4830'},
+  {name:'Sègbé Mensah',cat:'VIP',ref:'WMT-2026-4795'},
+  {name:'Koffi Dossou',cat:'Standard',ref:'WMT-2026-4711'},
+  {name:'Ayaba Hounkpatin',cat:'VIP',ref:'WMT-2026-4768'}
+];
+let scanFx=0;
+function nowHM(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function simScan(type){
+  const res=document.getElementById('scanResult');
+  const mark=document.getElementById('srMark');
+  const status=document.getElementById('srStatus');
+  const reason=document.getElementById('srReason');
+  const card=document.getElementById('srCard');
+  res.classList.remove('valid','refus');
+  const CHECK='<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  const CROSS='<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  if(type==='valid'){
+    const fx=SCAN_FIXTURES[scanFx++%SCAN_FIXTURES.length];
+    res.classList.add('valid');
+    mark.innerHTML=CHECK;
+    status.textContent='Billet valide';
+    reason.textContent='Entrée autorisée';
+    card.innerHTML=
+      '<div class="sr-row"><span class="sr-k">Participant</span><span class="sr-v big">'+fx.name+'</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Catégorie</span><span class="sr-v">'+fx.cat+'</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Référence</span><span class="sr-v" style="font-family:var(--fm);font-size:12px;">'+fx.ref+'</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Validé à</span><span class="sr-v">'+nowHM()+'</span></div>';
+    // incrémente les compteurs
+    cState.entered++;
+    updateCheckinCounters();
+  } else if(type==='used'){
+    res.classList.add('refus');
+    mark.innerHTML=CROSS;
+    status.textContent='Déjà utilisé';
+    reason.textContent='Ce billet a déjà été scanné';
+    card.innerHTML=
+      '<div class="sr-row"><span class="sr-k">Participant</span><span class="sr-v big">Raoul Tévoédjrè</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Catégorie</span><span class="sr-v">Standard</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Référence</span><span class="sr-v" style="font-family:var(--fm);font-size:12px;">WMT-2026-4655</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Première entrée</span><span class="sr-v" style="color:#ED7A70;">20:01 · Entrée principale</span></div>';
+    cState.refused++;
+  } else {
+    res.classList.add('refus');
+    mark.innerHTML=CROSS;
+    status.textContent='Billet invalide';
+    reason.textContent='QR non reconnu pour cet événement';
+    card.innerHTML=
+      '<div class="sr-row"><span class="sr-k">Référence</span><span class="sr-v" style="font-family:var(--fm);font-size:12px;">— inconnue —</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Statut</span><span class="sr-v" style="color:#ED7A70;">Hors liste synchronisée</span></div>'+
+      '<div class="sr-row"><span class="sr-k">Scanné à</span><span class="sr-v">'+nowHM()+'</span></div>';
+    cState.refused++;
+  }
+  res.classList.add('show');
+  if(navigator.vibrate)navigator.vibrate(type==='valid'?40:[60,40,60]);
+}
+function closeScanResult(){
+  document.getElementById('scanResult').classList.remove('show');
+}
+function updateCheckinCounters(){
+  const e=cState.entered,cap=cState.cap;
+  const pct=Math.round(e/cap*100);
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('scanCount',e);
+  set('teamEntered',e+' / '+cap);
+  set('cstTotal',e);set('cstIn',e);set('cstFill',pct);
+  const fb=document.getElementById('cstFillBar');if(fb)fb.style.width=pct+'%';
+  const tt=document.getElementById('teamEntered');if(tt)tt.innerHTML=e+'<span class="u"> / '+cap+'</span>';
+}
+
+/* US-034 — Inviter un agent temporaire */
+/* US-034 — Gestion des agents (côté organisateur) */
+function createAgentAccess(){
+  const code='GANGBE-'+Math.floor(1000+Math.random()*9000);
+  const fresh=document.getElementById('oagFresh');
+  document.getElementById('oagFreshCode').textContent=code;
+  fresh.hidden=false;
+  // nouvelle carte agent (en attente de connexion)
+  const list=document.getElementById('oagList');
+  const card=document.createElement('div');
+  card.className='oag-card';
+  const ic='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const tr='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  card.innerHTML=
+    '<div class="oag-c-top"><div class="oag-id"><div class="oag-av" style="background:rgba(245,236,215,.06);border-color:rgba(245,236,215,.12);color:rgba(245,236,215,.4);">?</div>'+
+    '<div><div class="oag-name" style="color:rgba(245,236,215,.7);">Nouvel agent</div><div class="oag-zone">Code à partager</div></div></div>'+
+    '<span class="st-badge st-wait">En attente</span></div>'+
+    '<div class="oag-code-row"><span class="oag-code">'+code+'</span><div class="oag-act">'+
+    '<button onclick="copyCode(\''+code+'\',this)" title="Copier">'+ic+'</button>'+
+    '<button class="rev" onclick="revokeAgent(this)" title="Révoquer">'+tr+'</button></div></div>';
+  list.insertBefore(card,list.firstChild);
+  const c=document.getElementById('oagCount'); c.textContent=(parseInt(c.textContent)||0)+1;
+  const sc=document.querySelector('#oagents .o-scroll'); if(sc)sc.scrollTop=0;
+}
+function copyCode(code,btn){
+  if(navigator.clipboard)navigator.clipboard.writeText(code).catch(()=>{});
+  const old=btn.innerHTML;
+  btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  btn.style.color='var(--oc)';btn.style.borderColor='var(--oc)';
+  setTimeout(()=>{btn.innerHTML=old;btn.style.color='';btn.style.borderColor='';},1200);
+}
+function revokeAgent(btn){
+  if(!confirm("Révoquer cet accès agent ?\n\nLe code ne fonctionnera plus pour scanner. Cette action est immédiate.")) return;
+  const card=btn.closest('.oag-card');
+  card.classList.add('revoked');
+  setTimeout(()=>{
+    card.remove();
+    const c=document.getElementById('oagCount'); c.textContent=Math.max(0,(parseInt(c.textContent)||1)-1);
+  },180);
+}
+
+/* Mode d'authentification check-in (agent / organisateur) */
+function cAuthMode(m){
+  document.getElementById('atAgent').classList.toggle('on',m==='agent');
+  document.getElementById('atOrga').classList.toggle('on',m==='orga');
+  document.getElementById('cAuthAgent').hidden=(m!=='agent');
+  document.getElementById('cAuthOrga').hidden=(m!=='orga');
+}
+
+/* Déconnexion d'un agent de contrôle (accès temporaire) */
+function logoutAgent(){
+  if(confirm("Se déconnecter du contrôle ?\n\nTes scans déjà synchronisés sont conservés. Tu devras ressaisir le code agent pour reprendre.")){
+    cAuthMode('agent');
+    nav('srole');
+  }
+}
+
+/* ============================================================
+   ESPACE ORGA — AUTH & SYSTÈME DE TIERS (Niveau 1 / Niveau 2)
+============================================================ */
+let orgTier=2; // 2 = Pro (compte existant par défaut) · 1 = Basique informel
+const ICON_CIP='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M7 16h10"/></svg>';
+const ICON_DOC='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+
+function loginMethodO(m){
+  document.getElementById('atOEmail').classList.toggle('on',m==='email');
+  document.getElementById('atOPhone').classList.toggle('on',m==='phone');
+  document.getElementById('ologinEmail').hidden=(m!=='email');
+  document.getElementById('ologinPhone').hidden=(m!=='phone');
+}
+function loginOrg(){ orgTier=2; applyOrgTier(); nav('odash'); }
+
+function chooseTier(n){
+  orgTier=n;
+  const t1=document.getElementById('osDocsT1'), t2=document.getElementById('osDocsT2');
+  const nm=document.getElementById('osLvlName'), ic=document.getElementById('osLvlIc');
+  if(n===1){
+    t1.hidden=false; t2.hidden=true;
+    nm.textContent='Niveau 1 · Compte Basique';
+    ic.innerHTML=ICON_CIP;
+  } else {
+    t1.hidden=true; t2.hidden=false;
+    nm.textContent='Niveau 2 · Compte Pro';
+    ic.innerHTML=ICON_DOC;
+  }
+  nav('osignup');
+}
+function finishSignup(){ applyOrgTier(); nav('odash'); }
+
+function applyOrgTier(){
+  const plf=document.getElementById('odashPlafond');
+  if(plf) plf.style.display = (orgTier===1) ? 'block' : 'none';
+  const lvl=document.getElementById('oprofLevel');
+  if(lvl) lvl.textContent = (orgTier===1) ? 'Niveau 1 · Compte Basique' : 'Niveau 2 · Compte Pro';
+  const ifu=document.getElementById('oprofIfu');
+  if(ifu) ifu.style.display = (orgTier===1) ? 'flex' : 'none';
+}
+applyOrgTier();
 </script>
 
 </body>
